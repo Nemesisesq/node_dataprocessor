@@ -170,7 +170,13 @@ module.exports = {
 
         var res = _.chain(list, ssPackage)
             .thru(function (list) {
-                if (_.some(ssPackage.data.content, 'on_netflix')) {
+                if(_.some(list, ['name', 'Netflix'])){
+                    _.forEach(list, function(elem){
+                        if (elem.name == 'Netflix'){
+                            elem.source = 'netflix'
+                        }
+                    })
+                }else if (_.some(ssPackage.data.content, 'on_netflix')) {
                     if (!_.some(list, ['source', 'netflix'])) {
                         list.push({display_name: 'Netflix', source: 'netflix'})
                     }
