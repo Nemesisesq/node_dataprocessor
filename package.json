@@ -1,5 +1,5 @@
 {
-  "name": "node-js-getting-started",
+  "name": "streamsavy_data",
   "version": "0.2.5",
   "description": "A sample Node.js app using Express 4",
   "engines": {
@@ -10,17 +10,26 @@
     "start": "node index.js"
   },
   "dependencies": {
+    "async": "^2.0.0-rc.6",
     "ejs": "2.4.1",
     "express": "4.13.3"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/heroku/node-js-getting-started"
+    "url": "git+https://github.com/heroku/node-js-getting-started.git"
   },
   "keywords": [
     "node",
     "heroku",
     "express"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/heroku/node-js-getting-started/issues"
+  },
+  "homepage": "https://github.com/heroku/node-js-getting-started#readme",
+  "devDependencies": {
+    "cors": "^2.7.1"
+  },
+  "author": "Carl Lewis"
 }
