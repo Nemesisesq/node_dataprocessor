@@ -37,7 +37,6 @@ app.use(function (req, res, next) {
 });
 
 app.post('/', function (request, response) {
-    ss.createlist('hello world')
     response.render('pages/index');
 });
 
