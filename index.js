@@ -14,7 +14,7 @@ app.set('view engine', 'ejs');
 
 app.use(bodyParser.json());
 
-// app.use(cors());
+app.use(cors());
 
 // Add headers
 // app.use(function (req, res, next) {
