@@ -1,8 +1,10 @@
-var ss = require('./sorter.js');
+var ss = require('./js/sorter.js');
+var ds = require('./js/detailSorter');
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var cors = require('cors')
+var cors = require('cors');
+var morgan = require('morgan');
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -15,6 +17,8 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 
 app.use(cors());
+
+app.use(morgan('combined'));
 
 // Add headers
 app.use(function (req, res, next) {
@@ -51,6 +55,12 @@ app.post('/checkout_list', function(request, response){
     var res = ss.checkoutList(body);
     response.send(res)
 });
+
+app.post('/detail_sources', function(request, response){
+    var body = request.body;
+    var res = ds.detailSources(body);
+    response.send(res)
+})
 
 
 app.listen(app.get('port'), function () {

@@ -3,11 +3,12 @@
  */
 var _ = require('lodash');
 var async = require('async');
+var utils = require('./utils');
 
 var liveServices = ['cw', 'pbs', 'sling', 'cbs', 'nbc', 'abc', 'thecw', 'showtime_subscription', 'hbo_now', 'showtime', 'fox', 'fox_tveverywhere'];
 var onDemandServices = ['acorntv', 'cwseed', 'hulu_plus', 'hulu', 'hulu_free', 'nbc', 'starz', 'showtime_subscription', 'crackle'];
 var bingeServices = ['netflix', 'amazon_prime', 'seeso', 'tubi_tv', 'starz', 'starz_tveverywhere', 'showtime_subscription'];
-var payPerServices = ['google_play', 'itunes', 'amazon_buy', 'youtube_purchase', 'vudu'];
+var payPerServices = ['google_play', 'itunes', 'amazon_buy', 'youtube_purchase', 'vudu', 'amazon'];
 
 function interceptor(obj) {
     // console.log(obj)
@@ -86,6 +87,7 @@ function cleanString(s) {
     return s
 }
 
+
 module.exports = {
 
     servicePanelList: function (pkg) {
@@ -118,15 +120,7 @@ module.exports = {
             .map(function (elem) {
                 _.forEach(elem.channel, function (c) {
 
-                    if (typeof c.guidebox_data == 'string') {
-                        var jsonString = c.guidebox_data.replace(/'/g, '"');
-                        jsonString = cleanString(jsonString)
-                        c.guidebox_data = JSON.parse(jsonString)
-                    }
-
-                    if (elem.source == undefined) {
-                        c.source = c.guidebox_data.source
-                    }
+                    c = utils.fixGuideboxData(c, elem);
                 })
                 var list
                 elem.guidebox_data.sources == undefined ? list = elem.channel : list = _.concat(elem.channel, elem.guidebox_data.sources.web.episodes.all_sources, elem.guidebox_data.sources.ios.episodes.all_sources);
@@ -155,6 +149,10 @@ module.exports = {
                     elem.source = 'hulu_plus';
                     elem.id = 10
                     return elem
+                }
+
+                if (elem.name== 'Amazon'){
+                    elem.source = 'amazon';
                 }
 
                 return elem;
