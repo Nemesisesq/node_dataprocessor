@@ -46,11 +46,11 @@ app.post('/service_list', function (request, response) {
     response.send(res)
 });
 
-// app.post('/checkout_list', function(request, response){
-//     var body = request.body;
-//     var res = ss.checkoutList(body);
-//     response.send(res)
-// });
+app.post('/checkout_list', function(request, response){
+    var body = request.body;
+    var res = ss.checkoutList(body);
+    response.send(res)
+});
 
 
 app.listen(app.get('port'), function () {
