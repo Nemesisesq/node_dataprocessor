@@ -2,7 +2,7 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var cors = require('cors')
+// var cors = require('cors')
 
 app.set('port', (process.env.PORT || 5000));
 
