@@ -36,7 +36,7 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.post('/', function (request, response) {
+app.get('/', function (request, response) {
     response.render('pages/index');
 });
 
