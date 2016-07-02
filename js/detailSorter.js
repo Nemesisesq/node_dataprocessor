@@ -71,7 +71,6 @@ module.exports = {
                 })
                 .tap(utils.interceptor)
                 .groupBy(function (service) {
-                    debugger;
                     if (_.includes(utils.liveServices, service.source)) {
                         return 'live'
                     }
@@ -185,7 +184,6 @@ module.exports = {
 
                                 services.on_demand.push(elem)
                             }
-                            debugger;
 
                             if (elem.source == "showtime_subscription" || elem.source == "showtime") {
 

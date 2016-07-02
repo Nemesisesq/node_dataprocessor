@@ -108,7 +108,7 @@ module.exports = {
         async.waterfall([
             async.apply(this.genList, pkg),
             this.createlist,
-        ], function end(err, result){
+        ], function end(err, result) {
             res = result
         })
         return res
@@ -128,6 +128,21 @@ module.exports = {
             })
             .tap(interceptor)
             .flatten()
+            .map(function (elem) {
+                if (elem.source == undefined) {
+
+                    if (elem.hasOwnProperty('display_name')) {
+                        elem.source = elem.display_name.toLowerCase()
+                    }
+                    if (elem.hasOwnProperty('name')) {
+                        elem.source = elem.name.toLowerCase()
+                    }
+
+                }
+
+                return elem
+
+            })
             .uniqBy('source')
             .thru(function (services) {
                 if (checkForHuluWithShowtime(services)) {
@@ -151,7 +166,7 @@ module.exports = {
                     return elem
                 }
 
-                if (elem.name== 'Amazon'){
+                if (elem.name == 'Amazon') {
                     elem.source = 'amazon';
                 }
 
@@ -168,13 +183,13 @@ module.exports = {
 
         var res = _.chain(list, ssPackage)
             .thru(function (list) {
-                if(_.some(list, ['name', 'Netflix'])){
-                    _.forEach(list, function(elem){
-                        if (elem.name == 'Netflix'){
+                if (_.some(list, ['name', 'Netflix'])) {
+                    _.forEach(list, function (elem) {
+                        if (elem.name == 'Netflix') {
                             elem.source = 'netflix'
                         }
                     })
-                }else if (_.some(ssPackage.data.content, 'on_netflix')) {
+                } else if (_.some(ssPackage.data.content, 'on_netflix')) {
                     if (!_.some(list, ['source', 'netflix'])) {
                         list.push({display_name: 'Netflix', source: 'netflix'})
                     }
