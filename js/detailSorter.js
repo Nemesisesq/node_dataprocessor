@@ -237,7 +237,7 @@ module.exports = {
                     return services
                 })
                 .thru(function (services) {
-                    var nbc = _.remove(services.live, function (item) {
+                    var nbc = _.find(services.live, function (item) {
                         return item.source == 'nbc';
                     })
 
