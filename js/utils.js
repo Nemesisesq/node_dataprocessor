@@ -27,8 +27,7 @@ module.exports = {
                 return false
             }
         });
-    }
-    ,
+    },
 
     removeHuluIfShowtimeContent: function (services) {
         return _.filter(services, function (elem) {
@@ -66,7 +65,7 @@ module.exports = {
         if (elem.source == undefined) {
             c.source = c.guidebox_data.source
         }
-        
+
         return c
 
     },
