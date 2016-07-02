@@ -59,7 +59,21 @@ module.exports = {
 
                     return services
                 })
+                .map(function (elem) {
+                    if (elem.source == undefined) {
 
+                        if (elem.hasOwnProperty('display_name')) {
+                            elem.source = elem.display_name.toLowerCase()
+                        }
+                        if (elem.hasOwnProperty('name')) {
+                            elem.source = elem.name.toLowerCase()
+                        }
+
+                    }
+
+                    return elem
+
+                })
                 .uniqBy('source')
                 .uniqBy(function (elem) {
                     if (elem.display_name) {
