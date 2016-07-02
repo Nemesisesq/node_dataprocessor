@@ -145,7 +145,7 @@ module.exports = {
                                 services.live.push(elemCopy)
                             }
 
-                            if (elem.is_over_the_air) {
+                            if (elem.is_over_the_air || _.includes(utils.liveServices, elem.source)) {
                                 var elemCopy = _.cloneDeep(elem);
 
                                 elemCopy.name = 'OTA';
@@ -158,15 +158,15 @@ module.exports = {
                             }
 
                             if (elem.is_on_sling || elem.on_sling) {
-                                var elemCopy = _.cloneDeep(elem);
+                                // var elemCopy = _.cloneDeep(elem);
 
-                                elemCopy.name = 'Sling';
-                                delete elemCopy['id'];
-                                delete elemCopy['$$hashKey'];
+                                elem.name = 'Sling';
+                                delete elem['id'];
+                                delete elem['$$hashKey'];
 
-                                elemCopy.source = 'sling_tv';
+                                elem.source = 'sling_tv';
 
-                                services.live.push(elemCopy)
+                                // services.live.push(elemCopy)
 
 
                             }
@@ -237,7 +237,7 @@ module.exports = {
                     return services
                 })
                 .thru(function (services) {
-                    var nbc = _.find(services.live, function (item) {
+                    var nbc = _.takeWhile(services.live, function (item) {
                         return item.source == 'nbc';
                     })
 
