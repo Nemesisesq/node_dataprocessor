@@ -12,7 +12,16 @@ function interceptor(obj) {
 }
 
 
+var processOtaService = function (elem) {
+    var elemCopy = _.cloneDeep(elem);
 
+    elemCopy.name = 'OTA';
+    delete elemCopy['id'];
+    delete elemCopy['$$hashKey'];
+
+    elemCopy.source = 'ota';
+    return elemCopy;
+};
 module.exports = {
 
     detailSources: function (cs) {
@@ -22,7 +31,7 @@ module.exports = {
 
             var x = _(cs.channel)
                 .concat(cs.guidebox_data.sources.web.episodes.all_sources, cs.guidebox_data.sources.ios.episodes.all_sources)
-                .tap(function(o){
+                .tap(function (o) {
                     o
                 })
                 .map(function (elem) {
@@ -129,95 +138,112 @@ module.exports = {
                     }
 
                     if (services.live) {
-                        _.map(services.live, function (elem) {
-                            // debugger
+                        var newLiveServices = _.chain(services.live)
+                            .map(function (elem) {
+                                // debugger
+                                var elemCopy;
 
+                                if (elem.hasOwnProperty('guidebox_data') && elem.guidebox_data.is_over_the_air) {
+                                    elemCopy = processOtaService(elem);
 
-                            if (elem.hasOwnProperty('guidebox_data') && elem.guidebox_data.is_over_the_air) {
-                                var elemCopy = _.cloneDeep(elem);
-
-                                elemCopy.name = 'OTA';
-                                delete elemCopy['id'];
-                                delete elemCopy['$$hashKey'];
-
-                                elemCopy.source = 'ota';
-
-                                services.live.push(elemCopy)
-                            }
-
-                            if (elem.is_over_the_air || _.includes(utils.liveServices, elem.source)) {
-                                var elemCopy = _.cloneDeep(elem);
-
-                                elemCopy.name = 'OTA';
-                                delete elemCopy['id'];
-                                delete elemCopy['$$hashKey'];
-
-                                elemCopy.source = 'ota';
-
-                                services.live.push(elemCopy)
-                            }
-
-                            if (elem.is_on_sling || elem.on_sling) {
-                                // var elemCopy = _.cloneDeep(elem);
-
-                                elem.name = 'Sling';
-                                delete elem['id'];
-                                delete elem['$$hashKey'];
-
-                                elem.source = 'sling_tv';
-
-                                // services.live.push(elemCopy)
-
-
-                            }
-
-                            if (elem.source == "cbs") {
-
-
-                                if (!services.binge) {
-                                    services.binge = []
-                                }
-                                services.binge.push(elem);
-
-                                if (!services.on_demand) {
-                                    services.on_demand = []
-                                }
-                                services.on_demand.push(elem)
-                            }
-
-                            if (elem.source == "hbo_now") {
-
-                                if (!services.binge) {
-                                    services.binge = []
-                                }
-                                services.binge.push(elem)
-
-                                if (!services.on_demand) {
-                                    services.on_demand = []
+                                    if (elem.source == 'abc') {
+                                        return elemCopy
+                                    }
+                                        services.live.push(elemCopy)
                                 }
 
-                                services.on_demand.push(elem)
-                            }
+                                return elem
+                            })
+                            .map(function (elem) {
 
-                            if (elem.source == "showtime_subscription" || elem.source == "showtime") {
+                                if (elem.is_over_the_air || _.includes(utils.liveServices, elem.source)) {
+                                    elemCopy = processOtaService(elem);
 
-                                if (!services.binge) {
-                                    services.binge = []
+                                    if (elem.source == 'abc') {
+                                        return elemCopy
+                                    }
+                                        services.live.push(elemCopy)
                                 }
-                                services.binge.push(elem);
 
-                                if (!services.on_demand) {
-                                    services.on_demand = []
+                                return elem
+
+                            })
+                            .map(function (elem) {
+
+
+                                if (elem.is_on_sling || elem.on_sling) {
+                                    // var elemCopy = _.cloneDeep(elem);
+
+                                    elem.name = 'Sling';
+                                    delete elem['id'];
+                                    delete elem['$$hashKey'];
+
+                                    elem.source = 'sling_tv';
+
+                                    // services.live.push(elemCopy)
+
+                                }
+                                return elem
+                            })
+                            .map(function (elem) {
+
+
+                                if (elem.source == "cbs") {
+
+
+                                    if (!services.binge) {
+                                        services.binge = []
+                                    }
+                                    services.binge.push(elem);
+
+                                    if (!services.on_demand) {
+                                        services.on_demand = []
+                                    }
+                                    services.on_demand.push(elem)
                                 }
 
-                                services.on_demand.push(elem)
-                            }
+                                return elem
+                            })
+                            .map(function (elem) {
 
-                            //
+                                if (elem.source == "hbo_now") {
 
-                            return elem
+                                    if (!services.binge) {
+                                        services.binge = []
+                                    }
+                                    services.binge.push(elem)
 
-                        })
+                                    if (!services.on_demand) {
+                                        services.on_demand = []
+                                    }
+
+                                    services.on_demand.push(elem)
+
+
+                                }
+                                return elem
+                            })
+                            .map(function (elem) {
+
+                                if (elem.source == "showtime_subscription" || elem.source == "showtime") {
+
+                                    if (!services.binge) {
+                                        services.binge = []
+                                    }
+                                    services.binge.push(elem);
+
+                                    if (!services.on_demand) {
+                                        services.on_demand = []
+                                    }
+
+                                    services.on_demand.push(elem)
+
+                                }
+                                    return elem
+                            })
+                            .value()
+
+                        services.live = newLiveServices;
                     }
 
                     if (cs.on_netflix) {
@@ -237,6 +263,11 @@ module.exports = {
                     return services
                 })
                 .thru(function (services) {
+                    services.live = _.uniqBy(services.live, 'source')
+                    return services
+                })
+                .thru(function (services) {
+
                     var nbc = _.takeWhile(services.live, function (item) {
                         return item.source == 'nbc';
                     })
