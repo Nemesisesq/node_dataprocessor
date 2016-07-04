@@ -9,7 +9,9 @@ module.exports = {
     onDemandServices: ['acorntv', 'cwseed', 'hulu_plus', 'hulu', 'hulu_free', 'nbc', 'starz', 'showtime_subscription', 'crackle'],
     bingeServices: ['netflix', 'amazon_prime', 'seeso', 'tubi_tv', 'starz', 'starz_tveverywhere', 'showtime_subscription'],
     payPerServices: ['google_play', 'itunes', 'amazon_buy', 'youtube_purchase', 'vudu'],
-
+    slingChannels: ['ESPN', 'ESPN2', 'AMC', 'Food Network', 'A&E', 'History', 'TNT', 'El Rey', 'HGTV', 'IFC',
+        'Disney Channel', 'Polaris +', 'Maker', 'TBS', 'Travel Channel', 'Adult Swim', 'CNN', 'H2',
+        'Cartoon Network', "Comedy Central", 'ABC Family', 'Lifetime', 'Galavision', 'Bloomberg Television', 'Freeform', 'VICELAND'],
     interceptor: function (obj) {
         // console.log(obj)
         obj

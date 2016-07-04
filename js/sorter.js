@@ -22,9 +22,11 @@ function check_if_on_sling(obj) {
         return true
     } else if (obj.chan.is_on_sling) {
         return true
-    } else {
-        return false
+    } else if (_.includes(utils.slingChannels, obj.chan.display_name)) {
+        return true
     }
+
+    return false
 
 }
 
@@ -221,11 +223,16 @@ module.exports = {
                         return true
                     }
                     if (show.guidebox_data.sources) {
-                        var source_check = _.some(show.guidebox_data.sources.web.episodes.all_sources, function (show) {
-                            var showRe = new RegExp(show.source)
+
+                        var combinedSources = _.concat(show.guidebox_data.sources.web.episodes.all_sources,
+                            show.guidebox_data.sources.ios.episodes.all_sources,
+                            show.guidebox_data.sources.android.episodes.all_sources);
+
+                        var source_check = _.some(combinedSources, function (source) {
+                            var showRe = new RegExp(source.source)
                             var elemRe = new RegExp(elem.source)
 
-                            return showRe.test(elem.source) || elemRe.test(show.source)
+                            return showRe.test(elem.source) || elemRe.test(source.source)
 
 
                         })

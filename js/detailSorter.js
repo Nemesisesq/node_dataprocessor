@@ -97,7 +97,7 @@ module.exports = {
                     if (_.includes(utils.liveServices, service.source)) {
                         return 'live'
                     }
-                    if (service.is_on_sling || service.on_sling) {
+                    if (service.is_on_sling || service.on_sling || _.includes(utils.slingChannels, service.display_name)) {
                         return 'live'
                     }
                     if (_.includes(utils.onDemandServices, service.source)) {
@@ -115,153 +115,165 @@ module.exports = {
                 .tap(utils.interceptor)
                 .thru(function (services) {
 
-                    _.forEach(services.misc, function (service) {
-                        if (service.source == 'hbo_now') {
-                            services.live.push(service);
-                            services.on_demand.push(service);
-                            services.binge.push(service);
+                        _.forEach(services.misc, function (service) {
+                            if (service.source == 'hbo_now') {
+                                services.live.push(service);
+                                services.on_demand.push(service);
+                                services.binge.push(service);
+                            }
+                            else if (service.source == 'showtime_subscription') {
+                                services.on_demand.push(service);
+                                services.binge.push(service);
+                                services.live.push(service);
+                            }
+
+                        })
+                        if (_.some(services.on_demand, ['source', 'starz'])) {
+
+                            if (services.binge == undefined) {
+                                services.binge = []
+                            }
+                            services.binge.push(_.takeWhile(services.on_demand, {'source': 'starz'})[0]);
+
                         }
-                        else if (service.source == 'showtime_subscription') {
-                            services.on_demand.push(service);
-                            services.binge.push(service);
-                            services.live.push(service);
-                        }
 
-                    })
-                    if (_.some(services.on_demand, ['source', 'starz'])) {
+                        if (services.live) {
+                            var newLiveServices = _.chain(services.live)
+                                .map(function (elem) {
+                                    // debugger
+                                    var elemCopy;
 
-                        if (services.binge == undefined) {
-                            services.binge = []
-                        }
-                        services.binge.push(_.takeWhile(services.on_demand, {'source': 'starz'})[0]);
+                                    if (elem.hasOwnProperty('guidebox_data') && elem.guidebox_data.is_over_the_air) {
 
-                    }
 
-                    if (services.live) {
-                        var newLiveServices = _.chain(services.live)
-                            .map(function (elem) {
-                                // debugger
-                                var elemCopy;
+                                        elemCopy = processOtaService(elem);
 
-                                if (elem.hasOwnProperty('guidebox_data') && elem.guidebox_data.is_over_the_air) {
-                                    elemCopy = processOtaService(elem);
-
-                                    if (elem.source == 'abc') {
-                                        return elemCopy
-                                    }
+                                        if (elem.source != 'nbc' && elem.source != 'cbs') {
+                                            return elemCopy
+                                        }
                                         services.live.push(elemCopy)
-                                }
-
-                                return elem
-                            })
-                            .map(function (elem) {
-
-                                if (elem.is_over_the_air || _.includes(utils.liveServices, elem.source)) {
-                                    elemCopy = processOtaService(elem);
-
-                                    if (elem.source == 'abc') {
-                                        return elemCopy
-                                    }
-                                        services.live.push(elemCopy)
-                                }
-
-                                return elem
-
-                            })
-                            .map(function (elem) {
-
-
-                                if (elem.is_on_sling || elem.on_sling) {
-                                    // var elemCopy = _.cloneDeep(elem);
-
-                                    elem.name = 'Sling';
-                                    delete elem['id'];
-                                    delete elem['$$hashKey'];
-
-                                    elem.source = 'sling_tv';
-
-                                    // services.live.push(elemCopy)
-
-                                }
-                                return elem
-                            })
-                            .map(function (elem) {
-
-
-                                if (elem.source == "cbs") {
-
-
-                                    if (!services.binge) {
-                                        services.binge = []
-                                    }
-                                    services.binge.push(elem);
-
-                                    if (!services.on_demand) {
-                                        services.on_demand = []
-                                    }
-                                    services.on_demand.push(elem)
-                                }
-
-                                return elem
-                            })
-                            .map(function (elem) {
-
-                                if (elem.source == "hbo_now") {
-
-                                    if (!services.binge) {
-                                        services.binge = []
-                                    }
-                                    services.binge.push(elem)
-
-                                    if (!services.on_demand) {
-                                        services.on_demand = []
                                     }
 
-                                    services.on_demand.push(elem)
-
-
-                                }
-                                return elem
-                            })
-                            .map(function (elem) {
-
-                                if (elem.source == "showtime_subscription" || elem.source == "showtime") {
-
-                                    if (!services.binge) {
-                                        services.binge = []
-                                    }
-                                    services.binge.push(elem);
-
-                                    if (!services.on_demand) {
-                                        services.on_demand = []
-                                    }
-
-                                    services.on_demand.push(elem)
-
-                                }
                                     return elem
-                            })
-                            .value()
+                                })
+                                .map(function (elem) {
 
-                        services.live = newLiveServices;
-                    }
+                                    if (elem.is_over_the_air) {
+                                        elemCopy = processOtaService(elem);
 
-                    if (cs.on_netflix) {
-                        if (!services.hasOwnProperty('binge')) {
-                            services.binge = []
+                                        if (elem.source != 'nbc' && elem.source != 'cbs', elem.source != 'showtime') {
+                                            return elemCopy
+                                        }
+                                        services.live.push(elemCopy)
+                                    }
 
+                                    return elem
+
+                                })
+                                .map(function (elem) {
+
+
+                                    if (elem.is_on_sling || elem.on_sling || _.includes(utils.slingChannels, elem.display_name)) {
+                                        // var elemCopy = _.cloneDeep(elem);
+
+                                        elem.name = 'Sling';
+                                        elem.display_name = 'Sling';
+                                        delete elem['id'];
+                                        delete elem['$$hashKey'];
+
+                                        elem.source = 'sling_tv';
+
+                                        // services.live.push(elemCopy)
+
+                                    }
+                                    return elem
+                                })
+                                .map(function (elem) {
+
+
+                                    if (elem.source == "cbs") {
+
+
+                                        if (!services.binge) {
+                                            services.binge = []
+                                        }
+                                        services.binge.push(elem);
+
+                                        if (!services.on_demand) {
+                                            services.on_demand = []
+                                        }
+                                        services.on_demand.push(elem)
+                                    }
+
+                                    return elem
+                                })
+                                .map(function (elem) {
+
+                                    if (elem.source == "hbo_now") {
+
+                                        if (!services.binge) {
+                                            services.binge = []
+                                        }
+                                        services.binge.push(elem)
+
+                                        if (!services.on_demand) {
+                                            services.on_demand = []
+                                        }
+
+                                        services.on_demand.push(elem)
+
+
+                                    }
+                                    return elem
+                                })
+                                .map(function (elem) {
+
+                                    if (elem.source == "showtime_subscription" || elem.source == "showtime") {
+
+                                        if (!services.binge) {
+                                            services.binge = []
+                                        }
+                                        services.binge.push(elem);
+
+                                        if (!services.on_demand) {
+                                            services.on_demand = []
+                                        }
+
+                                        services.on_demand.push(elem)
+
+                                    }
+                                    return elem
+                                })
+                                .value()
+
+                            services.live = newLiveServices;
                         }
 
-                        var netflix_channel = _.some(services.binge, ['source', 'netflix']);
+                        _.forEach(services.live, function (elem) {
 
-                        if (!netflix_channel) {
-                            services.binge.push({source: 'netflix'})
+                            if (elem.source == 'cbs') {
+                                services.live.push({name: 'OTA', source: 'ota'})
+                            }
+                        })
+
+
+                        if (cs.on_netflix) {
+                            if (!services.hasOwnProperty('binge')) {
+                                services.binge = []
+
+                            }
+
+                            var netflix_channel = _.some(services.binge, ['source', 'netflix']);
+
+                            if (!netflix_channel) {
+                                services.binge.push({source: 'netflix'})
+                            }
                         }
+
+
+                        return services
                     }
-
-
-                    return services
-                })
+                )
                 .thru(function (services) {
                     services.live = _.uniqBy(services.live, 'source')
                     return services
@@ -279,7 +291,13 @@ module.exports = {
 
                             services.on_demand = _.concat(services.on_demand, nbc)
                         }
+                        if(!_.some(services.live, ['source', 'ota '])){
+                            elemCopy = processOtaService(nbc[0])
+
+                            services.live.push(elemCopy)
+                        }
                     }
+
 
                     if (!Object.keys) Object.prototype.keys = function (o) {
                         if (o !== Object(o))
