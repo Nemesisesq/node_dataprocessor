@@ -112,6 +112,7 @@ module.exports = {
         async.waterfall([
             async.apply(this.genList, pkg),
             this.createlist,
+            this.cleanUpCbsOnCheckout
         ], function end(err, result) {
             res = result
         });
@@ -346,6 +347,21 @@ module.exports = {
             .value();
 
         callback(null, res)
+    },
+
+    cleanUpCbsOnCheckout : function(list, callback){
+
+        var reg_cbs = _.some(list.not_ota, ['chan.source', 'cbs']),
+            app_cbs = _.some(list.not_ota, ['chan.source', 'cbs_all_access']);
+
+        if(app_cbs && reg_cbs){
+            list.not_ota = _.filter(list.not_ota, function(elem){
+                var res = elem.chan.source !== 'cbs_all_access';
+                return res
+            })
+        }
+
+        callback(null, list)
     },
 
     consolidatePpv: function (list, callback) {
