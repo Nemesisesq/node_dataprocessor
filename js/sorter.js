@@ -152,6 +152,9 @@ module.exports = {
             .filter(function(elem){
                 return elem.source != 'misc';
             })
+            .filter(function(elem){
+                return elem.source != 'hbo'
+            })
             .thru(function (services) {
                 if (checkForHuluWithShowtime(services)) {
                     services = removeHuluIfShowtimeContent(services)
