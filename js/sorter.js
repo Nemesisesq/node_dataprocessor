@@ -24,6 +24,8 @@ function check_if_on_sling(obj) {
         return true
     } else if (_.includes(utils.slingChannels, obj.chan.display_name)) {
         return true
+    }else if (_.includes(utils.slingChannels, obj.chan.name)) {
+        return true
     }
 
     return false
@@ -93,7 +95,7 @@ function cleanString(s) {
 module.exports = {
 
     servicePanelList: function (pkg) {
-        var res
+        var res;
         async.waterfall([
             async.apply(this.genList, pkg),
             this.createlist,
@@ -106,13 +108,13 @@ module.exports = {
     },
 
     checkoutList: function (pkg) {
-        var res
+        var res;
         async.waterfall([
             async.apply(this.genList, pkg),
             this.createlist,
         ], function end(err, result) {
             res = result
-        })
+        });
         return res
     },
 
@@ -123,9 +125,9 @@ module.exports = {
                 _.forEach(elem.channel, function (c) {
 
                     c = utils.fixGuideboxData(c, elem);
-                })
-                var list
-                elem.guidebox_data.sources == undefined ? list = elem.channel : list = _.concat(elem.channel, elem.guidebox_data.sources.web.episodes.all_sources, elem.guidebox_data.sources.ios.episodes.all_sources);
+                });
+                var list;
+                elem.guidebox_data.sources == undefined ? list = elem.channel : list = _.concat(elem.channel, elem.guidebox_data.sources.web.episodes.all_sources, elem.guidebox_data.sources.ios.episodes.all_sources, elem.guidebox_data.detail.channels);
                 return list
             })
             .tap(interceptor)
@@ -164,7 +166,7 @@ module.exports = {
             .map(function (elem) {
                 if (elem.source == 'hulu_free') {
                     elem.source = 'hulu_plus';
-                    elem.id = 10
+                    elem.id = 10;
                     return elem
                 }
 
@@ -174,7 +176,7 @@ module.exports = {
 
                 return elem;
             })
-            .value()
+            .value();
         callback(null, list, ssPackage)
     },
     createlist: function (list, ssPackage, callback) {
@@ -217,20 +219,29 @@ module.exports = {
                 return elem;
             })
             .map(function (elem) {
-                var o = {chan: elem}
+                var o = {chan: elem};
                 o.shows = _.filter(ssPackage.data.content, function (show) {
                     if (show.on_netflix && elem.source == 'netflix') {
                         return true
                     }
+                    
+                    if (new RegExp(elem.source, 'i').test(show.guidebox_data.detail.channels[0].name)){
+                        return true
+                    }
+
+
                     if (show.guidebox_data.sources) {
 
                         var combinedSources = _.concat(show.guidebox_data.sources.web.episodes.all_sources,
                             show.guidebox_data.sources.ios.episodes.all_sources,
                             show.guidebox_data.sources.android.episodes.all_sources);
 
+                        combinedSources = _.uniqBy(combinedSources, 'source');
+
                         var source_check = _.some(combinedSources, function (source) {
-                            var showRe = new RegExp(source.source)
-                            var elemRe = new RegExp(elem.source)
+                            var showRe = new RegExp(source.source);
+                            var elemRe = new RegExp(elem.source);
+
 
                             return showRe.test(elem.source) || elemRe.test(source.source)
 
@@ -243,7 +254,7 @@ module.exports = {
 
                     var url_check = _.some(show.channel, ['url', elem.url]);
                     return url_check || source_check
-                })
+                });
 
                 if (o.chan.guidebox_data) {
                     if (o.chan.guidebox_data.is_over_the_air) {
@@ -284,7 +295,7 @@ module.exports = {
                             return item.chan.source == 'nbc'
                         })
                         .cloneDeep()
-                        .value()
+                        .value();
                     if (list.not_ota == undefined) {
                         list.not_ota = nbc
                     } else {
@@ -294,11 +305,11 @@ module.exports = {
 
                 var showsOta = _.map(list.ota, function (elem) {
                     return elem.shows
-                })
+                });
 
                 var showsSling = _.map(list.sling, function (elem) {
                     return elem.shows
-                })
+                });
 
 
                 if (list.ota) {
@@ -337,7 +348,7 @@ module.exports = {
     consolidatePpv: function (list, callback) {
         var showsPpv = _.map(list.ppv, function (elem) {
             return elem.shows
-        })
+        });
 
         if (list.ppv && list.ppv.length > 1) {
             list.ppv[0].shows = _.uniqBy(_.flatten(showsPpv), 'url');
@@ -346,4 +357,4 @@ module.exports = {
         callback(null, list)
     }
 
-}
+};

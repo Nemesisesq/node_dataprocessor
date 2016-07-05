@@ -60,7 +60,7 @@ app.post('/detail_sources', function(request, response){
     var body = request.body;
     var res = ds.detailSources(body);
     response.send(res)
-})
+});
 
 
 

@@ -30,7 +30,7 @@ module.exports = {
 
 
             var x = _(cs.channel)
-                .concat(cs.guidebox_data.sources.web.episodes.all_sources, cs.guidebox_data.sources.ios.episodes.all_sources)
+                .concat(cs.guidebox_data.sources.web.episodes.all_sources, cs.guidebox_data.sources.ios.episodes.all_sources, cs.guidebox_data.detail.channels)
                 .tap(function (o) {
                     o
                 })
@@ -38,7 +38,7 @@ module.exports = {
                     _.forEach(elem.channel, function (c) {
 
                         c = utils.fixGuideboxData(c, elem);
-                    })
+                    });
 
                     if (elem.guidebox_data != undefined) {
                         elem.source = elem.guidebox_data.short_name
@@ -127,7 +127,7 @@ module.exports = {
                                 services.live.push(service);
                             }
 
-                        })
+                        });
                         if (_.some(services.on_demand, ['source', 'starz'])) {
 
                             if (services.binge == undefined) {
@@ -173,7 +173,10 @@ module.exports = {
                                 .map(function (elem) {
 
 
-                                    if (elem.is_on_sling || elem.on_sling || _.includes(utils.slingChannels, elem.display_name)) {
+                                    if (elem.is_on_sling || 
+                                        elem.on_sling || 
+                                        _.includes(utils.slingChannels, elem.display_name) ||
+                                    _.includes(utils.slingChannels, elem.name)) {
                                         // var elemCopy = _.cloneDeep(elem);
 
                                         elem.name = 'Sling';
@@ -214,7 +217,7 @@ module.exports = {
                                         if (!services.binge) {
                                             services.binge = []
                                         }
-                                        services.binge.push(elem)
+                                        services.binge.push(elem);
 
                                         if (!services.on_demand) {
                                             services.on_demand = []
@@ -244,7 +247,7 @@ module.exports = {
                                     }
                                     return elem
                                 })
-                                .value()
+                                .value();
 
                             services.live = newLiveServices;
                         }
@@ -254,7 +257,7 @@ module.exports = {
                             if (elem.source == 'cbs') {
                                 services.live.push({name: 'OTA', source: 'ota'})
                             }
-                        })
+                        });
 
 
                         if (cs.on_netflix) {
@@ -275,14 +278,14 @@ module.exports = {
                     }
                 )
                 .thru(function (services) {
-                    services.live = _.uniqBy(services.live, 'source')
+                    services.live = _.uniqBy(services.live, 'source');
                     return services
                 })
                 .thru(function (services) {
 
                     var nbc = _.takeWhile(services.live, function (item) {
                         return item.source == 'nbc';
-                    })
+                    });
 
                     if (nbc.length > 0) {
                         if (services.on_demand == undefined) {
@@ -292,7 +295,7 @@ module.exports = {
                             services.on_demand = _.concat(services.on_demand, nbc)
                         }
                         if(!_.some(services.live, ['source', 'ota '])){
-                            elemCopy = processOtaService(nbc[0])
+                            elemCopy = processOtaService(nbc[0]);
 
                             services.live = [elemCopy];
                         }
@@ -305,7 +308,7 @@ module.exports = {
                         var k = [], p;
                         for (p in o) if (Object.prototype.hasOwnProperty.call(o, p)) k.push(p);
                         return k;
-                    }
+                    };
 
                     services.sortedServices = _.sortBy(Object.keys(services), function (elem) {
                         return elem.length
@@ -321,4 +324,4 @@ module.exports = {
         return x
     }
 
-}
+};
