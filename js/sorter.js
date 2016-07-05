@@ -148,6 +148,9 @@ module.exports = {
 
             })
             .uniqBy('source')
+            .filter(function(elem){
+                return elem.source != 'misc';
+            })
             .thru(function (services) {
                 if (checkForHuluWithShowtime(services)) {
                     services = removeHuluIfShowtimeContent(services)
