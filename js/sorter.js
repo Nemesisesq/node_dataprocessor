@@ -24,7 +24,7 @@ function check_if_on_sling(obj) {
         return true
     } else if (_.includes(utils.slingChannels, obj.chan.display_name)) {
         return true
-    }else if (_.includes(utils.slingChannels, obj.chan.name)) {
+    } else if (_.includes(utils.slingChannels, obj.chan.name)) {
         return true
     }
 
@@ -149,10 +149,10 @@ module.exports = {
 
             })
             .uniqBy('source')
-            .filter(function(elem){
+            .filter(function (elem) {
                 return elem.source != 'misc';
             })
-            .filter(function(elem){
+            .filter(function (elem) {
                 return elem.source != 'hbo'
             })
             .thru(function (services) {
@@ -231,8 +231,8 @@ module.exports = {
                     if (show.on_netflix && elem.source == 'netflix') {
                         return true
                     }
-                    
-                    if (new RegExp(elem.source, 'i').test(show.guidebox_data.detail.channels[0].name)){
+
+                    if (new RegExp(elem.source, 'i').test(show.guidebox_data.detail.channels[0].name)) {
                         return true
                     }
 
@@ -273,14 +273,18 @@ module.exports = {
 
             })
             .filter(function (elem) {
-                return elem.chan.source != 'misc_shows' && elem.chan.display_name != "HBO GO" && elem.chan.source != 'mtv' && elem.chan.source != 'showtime_free'
+                return elem.chan.source != 'misc_shows'
+                    && elem.chan.display_name != "HBO GO"
+                    && elem.chan.source != 'mtv'
+                    && elem.chan.source != 'showtime_free'
+                    && elem.chan.source != 'tv land'
             })
             .groupBy(function (elem) {
                 if (elem.chan.is_over_the_air) {
                     return 'ota'
                 }
 
-                if (_.includes(utils.otaServices, elem.chan.source)){
+                if (_.includes(utils.otaServices, elem.chan.source)) {
                     return 'ota'
                 }
                 if (check_if_on_sling(elem)) {
@@ -356,13 +360,13 @@ module.exports = {
         callback(null, res)
     },
 
-    cleanUpCbsOnCheckout : function(list, callback){
+    cleanUpCbsOnCheckout: function (list, callback) {
 
         var reg_cbs = _.some(list.not_ota, ['chan.source', 'cbs']),
             app_cbs = _.some(list.not_ota, ['chan.source', 'cbs_all_access']);
 
-        if(app_cbs && reg_cbs){
-            list.not_ota = _.filter(list.not_ota, function(elem){
+        if (app_cbs && reg_cbs) {
+            list.not_ota = _.filter(list.not_ota, function (elem) {
                 var res = elem.chan.source !== 'cbs_all_access';
                 return res
             })
