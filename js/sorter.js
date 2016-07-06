@@ -279,6 +279,10 @@ module.exports = {
                 if (elem.chan.is_over_the_air) {
                     return 'ota'
                 }
+
+                if (_.includes(utils.liveServices, elem.chan.source)){
+                    return 'ota'
+                }
                 if (check_if_on_sling(elem)) {
                     return 'sling'
                 }
