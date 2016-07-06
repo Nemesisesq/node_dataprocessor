@@ -148,20 +148,24 @@ module.exports = {
 
                                         elemCopy = processOtaService(elem);
 
-                                        if (elem.source != 'nbc' && elem.source != 'cbs') {
-                                            return elemCopy
+
+                                        if (elem.source == 'nbc' || elem.source == 'cbs') {
+
+                                            services.live.push(elemCopy)
                                         }
-                                        services.live.push(elemCopy)
+                                        return elemCopy
                                     }
 
                                     return elem
                                 })
                                 .map(function (elem) {
+
+
 
                                     if (elem.is_over_the_air || _.includes(utils.otaServices, elem.source)) {
                                         elemCopy = processOtaService(elem);
 
-                                        if (elem.source != 'nbc' && elem.source != 'cbs', elem.source != 'showtime') {
+                                        if (elem.source != 'nbc' && elem.source != 'cbs' && elem.source != 'showtime') {
                                             return elemCopy
                                         }
                                         services.live.push(elemCopy)
@@ -173,10 +177,10 @@ module.exports = {
                                 .map(function (elem) {
 
 
-                                    if (elem.is_on_sling || 
-                                        elem.on_sling || 
+                                    if (elem.is_on_sling ||
+                                        elem.on_sling ||
                                         _.includes(utils.slingChannels, elem.display_name) ||
-                                    _.includes(utils.slingChannels, elem.name)) {
+                                        _.includes(utils.slingChannels, elem.name)) {
                                         // var elemCopy = _.cloneDeep(elem);
 
                                         elem.name = 'Sling';
@@ -294,10 +298,10 @@ module.exports = {
 
                             services.on_demand = _.concat(services.on_demand, nbc)
                         }
-                        if(!_.some(services.live, ['source', 'ota '])){
+                        if (!_.some(services.live, ['source', 'ota '])) {
                             elemCopy = processOtaService(nbc[0]);
 
-                            services.live = [elemCopy];
+                            services.live.push(elemCopy);
                         }
                     }
 
