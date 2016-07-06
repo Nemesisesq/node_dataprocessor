@@ -149,11 +149,11 @@ module.exports = {
                                         elemCopy = processOtaService(elem);
 
 
-                                        if (elem.source == 'nbc' || elem.source == 'cbs') {
+                                        if (elem.source != 'nbc' && elem.source != 'cbs' && elem.source != 'showtime') {
 
-                                            services.live.push(elemCopy)
-                                        }
                                         return elemCopy
+                                        }
+                                            services.live.push(elemCopy)
                                     }
 
                                     return elem
