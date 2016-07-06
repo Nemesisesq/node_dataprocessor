@@ -16,7 +16,11 @@ app.set('view engine', 'ejs');
 
 app.use(bodyParser.json());
 
-app.use(cors());
+app.use(cors({
+    allowedOrigins :[
+        'localhost', 'herokuapp.com', 'streamsavvy.tv'
+    ]
+}));
 
 app.use(morgan('combined'));
 
@@ -39,6 +43,8 @@ app.use(function (req, res, next) {
     // Pass to next layer of middleware
     next();
 });
+
+
 
 app.get('/', function (request, response) {
     response.render('pages/index');
