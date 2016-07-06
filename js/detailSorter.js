@@ -301,7 +301,7 @@ module.exports = {
                         if (!_.some(services.live, ['source', 'ota '])) {
                             elemCopy = processOtaService(nbc[0]);
 
-                            services.live.push(elemCopy);
+                            services.live=[elemCopy];
                         }
                     }
 
