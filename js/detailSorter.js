@@ -158,7 +158,7 @@ module.exports = {
                                 })
                                 .map(function (elem) {
 
-                                    if (elem.is_over_the_air) {
+                                    if (elem.is_over_the_air || _.includes(utils.otaServices, elem.source)) {
                                         elemCopy = processOtaService(elem);
 
                                         if (elem.source != 'nbc' && elem.source != 'cbs', elem.source != 'showtime') {
