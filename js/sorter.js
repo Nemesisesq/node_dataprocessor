@@ -280,7 +280,7 @@ module.exports = {
                     return 'ota'
                 }
 
-                if (_.includes(utils.liveServices, elem.chan.source)){
+                if (_.includes(utils.otaServices, elem.chan.source)){
                     return 'ota'
                 }
                 if (check_if_on_sling(elem)) {

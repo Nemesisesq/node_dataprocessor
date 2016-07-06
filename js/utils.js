@@ -6,6 +6,7 @@ var _ = require('lodash');
 
 module.exports = {
     liveServices: ['cw',  'pbs', 'sling', 'cbs', 'hgtv', 'nbc', 'abc', 'thecw', 'showtime_subscription', 'hbo_now', 'showtime', 'fox', 'fox_tveverywhere'],
+    otaServices: ['cw',  'pbs', 'cbs', 'nbc', 'abc', 'thecw', 'fox', 'fox_tveverywhere'],
     onDemandServices: ['acorntv', 'cwseed', 'hulu_plus', 'hulu', 'hulu_free', 'nbc', 'starz', 'showtime_subscription', 'crackle'],
     bingeServices: ['netflix', 'amazon_prime', 'seeso', 'tubi_tv', 'starz', 'starz_tveverywhere', 'showtime_subscription'],
     payPerServices: ['google_play', 'itunes', 'amazon_buy', 'youtube_purchase', 'vudu'],
