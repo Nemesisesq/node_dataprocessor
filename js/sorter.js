@@ -131,7 +131,6 @@ module.exports = {
                 elem.guidebox_data.sources == undefined ? list = elem.channel : list = _.concat(elem.channel, elem.guidebox_data.sources.web.episodes.all_sources, elem.guidebox_data.sources.ios.episodes.all_sources, elem.guidebox_data.detail.channels);
                 return list
             })
-            .tap(interceptor)
             .flatten()
             .map(function (elem) {
                 if (elem.source == undefined) {
@@ -149,6 +148,7 @@ module.exports = {
 
             })
             .uniqBy('source')
+            .tap(interceptor)
             .filter(function (elem) {
                 return elem.source != 'misc';
             })
@@ -225,6 +225,7 @@ module.exports = {
 
                 return elem;
             })
+            .uniqBy('source')
             .map(function (elem) {
                 var o = {chan: elem};
                 o.shows = _.filter(ssPackage.data.content, function (show) {
