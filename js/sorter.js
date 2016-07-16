@@ -307,7 +307,7 @@ module.exports = {
                         return item.chan.source == 'nbc'
                     })) {
                     var nbc = _.chain(list.ota)
-                        .takeWhile(function (item) {
+                        .find(function (item) {
                             return item.chan.source == 'nbc'
                         })
                         .cloneDeep()
@@ -368,7 +368,8 @@ module.exports = {
 
         if (app_cbs && reg_cbs) {
             list.not_ota = _.filter(list.not_ota, function (elem) {
-                var res = elem.chan.source !== 'cbs_all_access';
+                // var res = elem.chan.source !== 'cbs_all_access' || 'sharetv';
+                var res = !_.includes(['cbs_all_access', 'sharetv', 'share_tv', elem.chan.source])
                 return res
             })
         }
