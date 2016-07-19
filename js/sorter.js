@@ -155,6 +155,9 @@ module.exports = {
             .filter(function (elem) {
                 return elem.source != 'hbo'
             })
+            .filter(function (elem) {
+                return elem.source != 'fx'
+            })
             .thru(function (services) {
                 if (checkForHuluWithShowtime(services)) {
                     services = removeHuluIfShowtimeContent(services)
@@ -369,7 +372,7 @@ module.exports = {
         if (app_cbs && reg_cbs) {
             list.not_ota = _.filter(list.not_ota, function (elem) {
                 // var res = elem.chan.source !== 'cbs_all_access' || 'sharetv';
-                var res = !_.includes(['cbs_all_access', 'sharetv', 'share_tv', elem.chan.source])
+                var res = !_.includes(['cbs_all_access', 'sharetv', 'share_tv'], elem.chan.source)
                 return res
             })
         }
