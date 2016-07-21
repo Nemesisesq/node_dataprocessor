@@ -5,6 +5,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var morgan = require('morgan');
+var sling = require('./js/slingParser');
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -69,6 +70,12 @@ app.post('/detail_sources', function(request, response){
     var res = ds.detailSources(body);
     response.send(res)
 });
+
+app.post('/sling_tiers', function(request, response){
+    var body = request.bodyl
+    var res = sling.process(body)
+
+})
 
 
 

@@ -82,7 +82,7 @@ function cleanString(s) {
         .replace(/\\t/g, "\\t")
         .replace(/\\b/g, "\\b")
         .replace(/\\f/g, "\\f")
-        .replace(RegExp(/None/g), '"false"');
+        .replace(new RegExp(/None/g), '"false"');
 
     // remove non-printable and other non-valid JSON chars
     s = s.replace(/[\u0000-\u0019]+/g, "");
@@ -90,6 +90,7 @@ function cleanString(s) {
 
     return s
 }
+
 
 
 module.exports = {
@@ -123,13 +124,7 @@ module.exports = {
     genList: function getBase(ssPackage, callback) {
         var list = _.chain(ssPackage.data.content)
             .map(function (elem) {
-                _.forEach(elem.channel, function (c) {
-
-                    c = utils.fixGuideboxData(c, elem);
-                });
-                var list;
-                elem.guidebox_data.sources == undefined ? list = elem.channel : list = _.concat(elem.channel, elem.guidebox_data.sources.web.episodes.all_sources, elem.guidebox_data.sources.ios.episodes.all_sources, elem.guidebox_data.detail.channels);
-                return list
+                return utils.getServices(elem);
             })
             .flatten()
             .map(function (elem) {
@@ -363,6 +358,8 @@ module.exports = {
 
         callback(null, res)
     },
+
+
 
     cleanUpCbsOnCheckout: function (list, callback) {
 
