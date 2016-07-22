@@ -126,6 +126,7 @@ module.exports = {
             .map(function (elem) {
                 return utils.getServices(elem);
             })
+            .tap(interceptor)
             .flatten()
             .map(function (elem) {
                 if (elem.source == undefined) {

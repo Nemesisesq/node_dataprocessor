@@ -67,13 +67,14 @@ app.post('/checkout_list', function(request, response){
 
 app.post('/detail_sources', function(request, response){
     var body = request.body;
-    var res = ds.detailSources(body);
+    var res = ds.viewingWindows(body);
     response.send(res)
 });
 
-app.post('/sling_tiers', function(request, response){
-    var body = request.bodyl
-    var res = sling.process(body)
+app.post('/sling_vue', function(request, response){
+    var body = request.body;
+    var res = sling.process(body);
+    response.send(res)
 
 })
 

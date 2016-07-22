@@ -1,8 +1,8 @@
 {
-  "name": "Node.js Getting Started",
-  "description": "A barebones Node.js app using Express 4",
-  "repository": "https://github.com/heroku/node-js-getting-started",
-  "logo": "http://node-js-sample.herokuapp.com/node.svg",
-  "keywords": ["node", "express", "static"],
+  "name": "Streamsavvy Node Microservice",
+  "description": "This is the server side home for code poorly implemented clientside",
+  "repository": "https://github.com/nemesisesq/node_dataprocessor",
+  "logo": "https://s3.amazonaws.com/streamsavvy/SS_Mark_red.png",
+  "keywords": ["node", "express", "static", "streamsavvy"],
   "image": "heroku/nodejs"
 }

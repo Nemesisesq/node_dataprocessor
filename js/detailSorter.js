@@ -4,6 +4,7 @@
 
 var _ = require('lodash');
 var utils = require('./utils');
+var async = require('async');
 
 function interceptor(obj) {
     // console.log(obj)
@@ -24,7 +25,31 @@ var processOtaService = function (elem) {
 };
 module.exports = {
 
-    detailSources: function (cs) {
+    viewingWindows: function (cs) {
+        var res
+        async.waterfall([
+            async.apply(this.detailSources, cs),
+            this.sonyVueProcessor
+        ], function (err, result) {
+            res = result
+        })
+        return res
+    },
+
+    sonyVueProcessor: function (obj, cs, callback) {
+
+
+
+        var collection = ['Sling Blue', 'Sling Orange', 'Sling Blue Orange', 'Sony Vue Slim', 'Sony Vue Core', 'Sony Vue Elite'];
+        _.forEach(collection, function (chan) {
+            var camel_chan = _.camelCase(chan)
+            utils.checkShowCoverageByTier(cs, utils[camel_chan]) && obj.live.push(chan)
+        })
+
+        callback(null, obj)
+    },
+
+    detailSources: function (cs, callback) {
 
         if (cs.guidebox_data != undefined) {
 
@@ -151,15 +176,14 @@ module.exports = {
 
                                         if (elem.source != 'nbc' && elem.source != 'cbs' && elem.source != 'showtime') {
 
-                                        return elemCopy
+                                            return elemCopy
                                         }
-                                            services.live.push(elemCopy)
+                                        services.live.push(elemCopy)
                                     }
 
                                     return elem
                                 })
                                 .map(function (elem) {
-
 
 
                                     if (elem.is_over_the_air || _.includes(utils.otaServices, elem.source)) {
@@ -301,7 +325,7 @@ module.exports = {
                         if (!_.some(services.live, ['source', 'ota '])) {
                             elemCopy = processOtaService(nbc[0]);
 
-                            services.live=[elemCopy];
+                            services.live = [elemCopy];
                         }
                     }
 
@@ -324,6 +348,7 @@ module.exports = {
                 })
                 .value();
         }
+        callback(null, x, cs)
 
         return x
     }

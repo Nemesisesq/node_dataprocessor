@@ -20,9 +20,46 @@ module.exports = {
     sonyVueSlim: ['AMC', 'Animal Planet', 'BET', 'Bravo', 'Cartoon Network', 'CMT', 'CNBC', 'CNN', 'Comedy Central', 'Destination America', 'Discovery', 'Discovery Family', 'Disney Channel', 'Disney Junior', 'Disney XD', 'DIY Network', 'E!', 'ESPN', 'ESPN2', 'Esquire Network', 'Food Network', 'Fox Business', 'Fox News', 'Freeform', 'FS1', 'FS2', 'FX', 'FXX', 'HGTV', 'HLN', 'Investigation Discovery', 'MSNBC', 'MTV', 'MTV2', 'National Geographic', 'NBCSN', 'Nick Jr.', 'Nickelodeon', 'Nick Toons', 'OWN', 'Oxygen', 'Pop', 'Science', 'Spike', 'Syfy', 'TBS', 'TLC', 'TNT', 'Travel Channel', 'TruTV', 'TV Land', 'USA'],
     sonyVueCore: ['AMC', 'Animal Planet', 'BET', 'Bravo', 'Cartoon Network', 'CMT', 'CNBC', 'CNN', 'Comedy Central', 'Destination America', 'Discovery', 'Discovery Family', 'Disney Channel', 'Disney Junior', 'Disney XD', 'DIY Network', 'E!', 'ESPN', 'ESPN2', 'Esquire Network', 'Food Network', 'Fox Business', 'Fox News', 'Freeform', 'FS1', 'FS2', 'FX', 'FXX', 'HGTV', 'HLN', 'Investigation Discovery', 'MSNBC', 'MTV', 'MTV2', 'National Geographic', 'NBCSN', 'Nick Jr.', 'Nickelodeon', 'Nick Toons', 'OWN', 'Oxygen', 'Pop', 'Science', 'Spike', 'Syfy', 'TBS', 'TLC', 'TNT', 'Travel Channel', 'TruTV', 'TV Land', 'USA', 'VH1', 'WeTV', 'Bein Sports', 'ESPNews', 'ESPN U', 'Fox Sports Networks', 'Golf Channel', 'IFC', 'SEC Network', 'Sundance TV', 'Turner Classic Movies', 'Telemundo'],
     sonyVueElite: ['AMC', 'Animal Planet', 'BET', 'Bravo', 'Cartoon Network', 'CMT', 'CNBC', 'CNN', 'Comedy Central', 'Destination America', 'Discovery', 'Discovery Family', 'Disney Channel', 'Disney Junior', 'Disney XD', 'DIY Network', 'E!', 'ESPN', 'ESPN2', 'Esquire Network', 'Food Network', 'Fox Business', 'Fox News', 'Freeform', 'FS1', 'FS2', 'FX', 'FXX', 'HGTV', 'HLN', 'Investigation Discovery', 'MSNBC', 'MTV', 'MTV2', 'National Geographic', 'NBCSN', 'Nick Jr.', 'Nickelodeon', 'Nick Toons', 'OWN', 'Oxygen', 'Pop', 'Science', 'Spike', 'Syfy', 'TBS', 'TLC', 'TNT', 'Travel Channel', 'TruTV', 'TV Land', 'USA', 'VH1', 'WeTV', 'Bein Sports', 'ESPNews', 'ESPN U', 'Fox Sports Networks', 'Golf Channel', 'IFC', 'SEC Network', 'Sundance TV', 'Turner Classic Movies', 'AHC', 'BET Gospel', 'BET Jams', 'BET Soul', 'Big Ten Network', 'Boomerang', 'Centric', 'Chiller', 'Cloo', 'CMT Music', 'CNBC World', 'Cooking Channel', 'Discovery Life', 'Epix Hits', 'Fox College Sports', 'Fusion', 'FXM', 'Hi-Yah', 'Impact', 'Logo', 'Machinima', 'MGM HD', 'MTV Hits', 'MTV Live', 'MTV U', 'Nat Geo Wild', 'One World Sports', 'Outside Television', 'Sprout', 'TeenNick', 'Universal HD', 'Velocity', 'VH1 Classic'],
+
+    slingVueList: [this.slingBlue, this.slingBlueOrange, this.slingOrange, this.sonyVueCore, this.sonyVueElite, this.sonyVueSlim],
+
+
     interceptor: function (obj) {
         // console.log(obj)
         obj
+    },
+
+    checkShowCoverageByTier: function (elem, list) {
+        var show_services = this.getServices(elem)
+        show_services = _.map(show_services, function (elem) {
+            return elem.name || elem.display_name
+
+        })
+
+        var intersection = _.intersection(show_services, list);
+
+        return intersection.length > 0
+    },
+
+    processContent: function (content, sorted_array, chan) {
+
+        var that = this
+        var camel_chan = _.camelCase(chan)
+
+        var res = _.filter(content, function (elem) {
+            return that.checkShowCoverageByTier(elem, that[camel_chan]);
+        })
+
+        var x = {
+            chan: chan,
+            shows: res
+        }
+
+        sorted_array.push(x)
+
+        return sorted_array
+
+
     },
 
     checkForHuluWithShowtime: function (services) {
@@ -99,9 +136,10 @@ module.exports = {
     },
 
     getServices: function (elem) {
+        var that = this
         _.forEach(elem.channel, function (c) {
 
-            c = utils.fixGuideboxData(c, elem);
+            c = that.fixGuideboxData(c, elem);
         });
         var list;
         elem.guidebox_data.sources == undefined ? list = elem.channel : list = _.concat(elem.channel, elem.guidebox_data.sources.web.episodes.all_sources, elem.guidebox_data.sources.ios.episodes.all_sources, elem.guidebox_data.detail.channels);
