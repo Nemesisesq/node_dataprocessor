@@ -29,7 +29,7 @@ module.exports = {
         var res
         async.waterfall([
             async.apply(this.detailSources, cs),
-            this.sonyVueProcessor
+            // this.sonyVueProcessor
         ], function (err, result) {
             res = result
         })
