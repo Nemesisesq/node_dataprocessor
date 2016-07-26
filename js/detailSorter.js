@@ -63,7 +63,8 @@ module.exports = {
                 .map(function(elem){
                     try {
                     elem.source = elem.guidebox_data.short_name
-
+                    } catch(e){
+                        console.log(e)
                     }
                         return elem
                 })
