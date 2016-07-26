@@ -40,10 +40,10 @@ module.exports = {
 
         var collection = ['Sling Blue', 'Sling Orange', 'Sling Blue Orange', 'Sony Vue Slim', 'Sony Vue Core', 'Sony Vue Elite'];
 
-        collection = _.map(collection, function(elem){
+        collection = _.map(collection, function (elem) {
             return {
-                source : _.snakeCase(elem),
-                display_name : elem
+                source: _.snakeCase(elem),
+                display_name: elem
             }
         })
         _.forEach(collection, function (chan) {
@@ -60,13 +60,13 @@ module.exports = {
 
 
             var x = _(cs.channel)
-                .map(function(elem){
+                .map(function (elem) {
                     try {
-                    elem.source = elem.guidebox_data.short_name
-                    } catch(e){
+                        elem.source = elem.guidebox_data.short_name
+                    } catch (e) {
                         console.log(e)
                     }
-                        return elem
+                    return elem
                 })
                 .concat(cs.guidebox_data.sources.web.episodes.all_sources, cs.guidebox_data.sources.ios.episodes.all_sources, cs.guidebox_data.detail.channels)
                 .tap(function (o) {
