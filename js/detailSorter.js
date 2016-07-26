@@ -60,6 +60,13 @@ module.exports = {
 
 
             var x = _(cs.channel)
+                .map(function(elem){
+                    try {
+                    elem.source = elem.guidebox_data.short_name
+
+                    }
+                        return elem
+                })
                 .concat(cs.guidebox_data.sources.web.episodes.all_sources, cs.guidebox_data.sources.ios.episodes.all_sources, cs.guidebox_data.detail.channels)
                 .tap(function (o) {
                     o
