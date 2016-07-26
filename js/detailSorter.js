@@ -29,7 +29,7 @@ module.exports = {
         var res
         async.waterfall([
             async.apply(this.detailSources, cs),
-            // this.sonyVueProcessor
+            this.sonyVueProcessor
         ], function (err, result) {
             res = result
         })
@@ -38,11 +38,16 @@ module.exports = {
 
     sonyVueProcessor: function (obj, cs, callback) {
 
-
-
         var collection = ['Sling Blue', 'Sling Orange', 'Sling Blue Orange', 'Sony Vue Slim', 'Sony Vue Core', 'Sony Vue Elite'];
+
+        collection = _.map(collection, function(elem){
+            return {
+                source : _.snakeCase(elem),
+                display_name : elem
+            }
+        })
         _.forEach(collection, function (chan) {
-            var camel_chan = _.camelCase(chan)
+            var camel_chan = _.camelCase(chan.display_name)
             utils.checkShowCoverageByTier(cs, utils[camel_chan]) && obj.live.push(chan)
         })
 

@@ -71,12 +71,12 @@ app.post('/detail_sources', function(request, response){
     response.send(res)
 });
 
-// app.post('/sling_vue', function(request, response){
-//     var body = request.body;
-//     var res = sling.process(body);
-//     response.send(res)
-//
-// })
+app.post('/sling_vue', function(request, response){
+    var body = request.body;
+    var res = sling.process(body);
+    response.send(res)
+
+})
 
 
 

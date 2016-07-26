@@ -7,7 +7,6 @@ var async = require('async');
 var utils = require('./utils');
 
 
-
 module.exports = {
 
     process: function (pkg) {
@@ -21,12 +20,30 @@ module.exports = {
             this.vueSlim,
             this.vueCore,
             this.vueElite,
-            ], function end (err, result) {
-                res = result
-            })
+            this.normalizeServices,
+        ], function end(err, result) {
+            res = result
+        })
 
         return res
 
+    },
+
+    normalizeServices: function (sorted_array, content, callback) {
+        sorted_array = _.map(sorted_array, function (elem) {
+            elem.chan = {
+                source: _.snakeCase(elem.chan),
+                display_name: elem.chan
+            }
+
+            return elem
+        })
+
+        sorted_array = _.filter(sorted_array, function(elem){
+            return elem.shows.length > 0
+        })
+
+        callback(null, sorted_array, content)
     },
 
     orange: function (sorted_array, content, callback) {
