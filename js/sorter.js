@@ -146,16 +146,40 @@ module.exports = {
             .uniqBy('source')
             .tap(interceptor)
             .filter(function (elem) {
-                return elem.source != 'misc';
+                // return elem.source != 'misc';
             })
             .filter(function (elem) {
-                return elem.source != 'hbo'
+                // return elem.source != 'hbo'
             })
             .filter(function (elem) {
-                return elem.source != 'fx'
+                // return elem.source != 'fx'
             })
             .filter(function(elem){
-                return elem.source != 'bravo'
+                // return elem.source != 'bravo'
+            })
+            .filter(function(elem){
+
+               // if(elem){
+               //     console.log('switch firing')
+               // }
+
+                switch(elem.source){
+                    case 'misc':
+                        return false;
+                    case 'hbo':
+                        return false;
+                    case 'fx':
+                        return false;
+                    case 'bravo':
+                        return false;
+                    case 'amc':
+                        return false;
+                    case 'syfy':
+                        return false;
+                    default:
+                        return true;
+
+                }
             })
             .thru(function (services) {
                 if (checkForHuluWithShowtime(services)) {
