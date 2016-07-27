@@ -10,9 +10,7 @@ module.exports = {
     onDemandServices: ['acorntv', 'cwseed', 'hulu_plus', 'hulu', 'hulu_free', 'nbc', 'starz', 'showtime_subscription', 'crackle'],
     bingeServices: ['netflix', 'amazon_prime', 'seeso', 'tubi_tv', 'starz', 'starz_tveverywhere', 'showtime_subscription'],
     payPerServices: ['google_play', 'itunes', 'amazon_buy', 'youtube_purchase', 'vudu'],
-    slingChannels: ['ESPN', 'ESPN2', 'AMC', 'Food Network', 'A&E', 'History', 'TNT', 'El Rey', 'HGTV', 'IFC',
-        'Disney Channel', 'Polaris +', 'Maker', 'TBS', 'Travel Channel', 'Adult Swim', 'CNN', 'H2',
-        'Cartoon Network', "Comedy Central", 'ABC Family', 'Lifetime', 'Galavision', 'Bloomberg Television', 'Freeform', 'VICELAND'],
+    slingChannels: [],
 
     slingOrange: ['A&E', 'Adult Swim', 'AMC', 'BBC America', 'Bloomberg TV', 'Cartoon Network', 'CNN', 'Comedy Central', 'Disney Channel', 'El Rey Network', 'ESPN', 'ESPN 2', 'Flama', 'Food Network', 'Freeform', 'Galavision', 'HGTV', 'History Channel', 'IFC', 'Lifetime', 'Local Now', 'Maker', 'Newsy', 'Polaris +', 'TBS', 'TNT', 'Travel Channel', 'Viceland'],
     slingBlue: ['A&E', 'Adult Swim', 'AMC', 'BBC America', 'BET', 'Bloomberg TV', 'Bravo', 'Cartoon Network', 'CNN', 'Comedy Central', 'CSN', 'El Rey Network', 'Flama', 'Food Network', 'Fox', 'Fox Sports', 'FS1', 'FS2', 'FX', 'FXX', 'Galavision', 'HGTV', 'History Channel', 'IFC', 'Lifetime', 'Local Now', 'Maker', 'Nat Geo Wild', 'National Geographic', 'NBC', 'NBCSN', 'Newsy', 'Nick Jr', 'Polaris +', 'Syfy', 'TBS', 'TNT', 'Travel Channel', 'Tru TV', 'Uni Mas', 'Univision', 'USA', 'Viceland'],
