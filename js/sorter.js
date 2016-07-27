@@ -154,6 +154,9 @@ module.exports = {
             .filter(function (elem) {
                 return elem.source != 'fx'
             })
+            .filter(function(elem){
+                return elem.source != 'bravo'
+            })
             .thru(function (services) {
                 if (checkForHuluWithShowtime(services)) {
                     services = removeHuluIfShowtimeContent(services)
