@@ -145,18 +145,18 @@ module.exports = {
             })
             .uniqBy('source')
             .tap(interceptor)
-            .filter(function (elem) {
-                // return elem.source != 'misc';
-            })
-            .filter(function (elem) {
-                // return elem.source != 'hbo'
-            })
-            .filter(function (elem) {
-                // return elem.source != 'fx'
-            })
-            .filter(function(elem){
-                // return elem.source != 'bravo'
-            })
+            // .filter(function (elem) {
+            //     // return elem.source != 'misc';
+            // })
+            // .filter(function (elem) {
+            //     // return elem.source != 'hbo'
+            // })
+            // .filter(function (elem) {
+            //     // return elem.source != 'fx'
+            // })
+            // .filter(function(elem){
+            //     // return elem.source != 'bravo'
+            // })
             .filter(function(elem){
 
                // if(elem){
