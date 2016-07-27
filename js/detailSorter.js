@@ -135,9 +135,9 @@ module.exports = {
                     if (_.includes(utils.liveServices, service.source)) {
                         return 'live'
                     }
-                    if (service.is_on_sling || service.on_sling || _.includes(utils.slingChannels, service.display_name)) {
-                        return 'live'
-                    }
+                    // if (service.is_on_sling || service.on_sling || _.includes(utils.slingChannels, service.display_name)) {
+                    //     return 'live'
+                    // }
                     if (_.includes(utils.onDemandServices, service.source)) {
                         return 'on_demand'
                     }
@@ -211,27 +211,27 @@ module.exports = {
                                     return elem
 
                                 })
-                                .map(function (elem) {
-
-
-                                    if (elem.is_on_sling ||
-                                        elem.on_sling ||
-                                        _.includes(utils.slingChannels, elem.display_name) ||
-                                        _.includes(utils.slingChannels, elem.name)) {
-                                        // var elemCopy = _.cloneDeep(elem);
-
-                                        elem.name = 'Sling';
-                                        elem.display_name = 'Sling';
-                                        delete elem['id'];
-                                        delete elem['$$hashKey'];
-
-                                        elem.source = 'sling_tv';
-
-                                        // services.live.push(elemCopy)
-
-                                    }
-                                    return elem
-                                })
+                                // .map(function (elem) {
+                                //
+                                //
+                                //     if (elem.is_on_sling ||
+                                //         elem.on_sling ||
+                                //         _.includes(utils.slingChannels, elem.display_name) ||
+                                //         _.includes(utils.slingChannels, elem.name)) {
+                                //         // var elemCopy = _.cloneDeep(elem);
+                                //
+                                //         elem.name = 'Sling';
+                                //         elem.display_name = 'Sling';
+                                //         delete elem['id'];
+                                //         delete elem['$$hashKey'];
+                                //
+                                //         elem.source = 'sling_tv';
+                                //
+                                //         // services.live.push(elemCopy)
+                                //
+                                //     }
+                                //     return elem
+                                // })
                                 .map(function (elem) {
 
 
