@@ -20,7 +20,9 @@ module.exports = {
             this.vueSlim,
             this.vueCore,
             this.vueElite,
+            async.apply(this.sports, pkg),
             this.normalizeServices,
+
         ], function end(err, result) {
             res = result
         })
@@ -93,4 +95,22 @@ module.exports = {
         callback(null, sorted_array, content)
 
     },
+    sports : function(pkg, sorted_array, content, callback){
+        var sports = pkg.data.sports;
+
+        _.forEach(sports, function(elem){
+                sorted_array = _.map(sorted_array, function(service){
+                    if(_.snakeCase(service.chan) == elem.img){
+                        service.shows.push(elem)
+                    }
+
+                    return service
+                })
+        })
+
+
+        callback(null, sorted_array, content)
+
+
+    }
 }

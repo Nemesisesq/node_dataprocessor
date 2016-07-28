@@ -39,6 +39,26 @@ module.exports = {
         return intersection.length > 0
     },
 
+    processSports: function (sports, sorted_array, chan) {
+
+        var that = this
+        var camel_chan = _.camelCase(chan)
+
+        var res = _.filter(sports, function (elem) {
+            return elem.img == _.snakeCase(chan)
+        })
+
+        var x = {
+            chan: chan,
+            shows: res
+        }
+
+        sorted_array.push(x)
+
+        return sorted_array
+
+
+    },
     processContent: function (content, sorted_array, chan) {
 
         var that = this
