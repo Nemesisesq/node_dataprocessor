@@ -410,7 +410,20 @@ module.exports = {
     otaForSports: function (pkg, list, callback) {
 
         _.forEach(pkg.data.sports, function (elem) {
-            if(elem.img == 'ota'){
+            if (elem.img == 'ota') {
+
+                if (!list.ota) {
+                    list.ota = [
+                        {
+                            chan: {
+                                source: 'ota'
+
+
+                            },
+                            shows : []
+
+                        }]
+                }
                 list.ota[0].shows.push(elem)
             }
         })
