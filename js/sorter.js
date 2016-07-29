@@ -92,7 +92,6 @@ function cleanString(s) {
 }
 
 
-
 module.exports = {
 
     servicePanelList: function (pkg) {
@@ -113,7 +112,8 @@ module.exports = {
         async.waterfall([
             async.apply(this.genList, pkg),
             this.createlist,
-            this.cleanUpCbsOnCheckout
+            this.cleanUpCbsOnCheckout,
+            async.apply(this.otaForSports, pkg)
         ], function end(err, result) {
             res = result
         });
@@ -157,13 +157,13 @@ module.exports = {
             // .filter(function(elem){
             //     // return elem.source != 'bravo'
             // })
-            .filter(function(elem){
+            .filter(function (elem) {
 
-               // if(elem){
-               //     console.log('switch firing')
-               // }
+                // if(elem){
+                //     console.log('switch firing')
+                // }
 
-                switch(elem.source){
+                switch (elem.source) {
                     case 'misc':
                         return false;
                     case 'hbo':
@@ -175,6 +175,8 @@ module.exports = {
                     case 'amc':
                         return false;
                     case 'syfy':
+                        return false;
+                    case 'espn':
                         return false;
                     default:
                         return true;
@@ -366,17 +368,17 @@ module.exports = {
                     }
                 }
 
-                if (list.sling) {
-                    if (list.sling.length > 1) {
-
-                        list.sling[0].shows = _.uniqBy(_.flatten(showsSling), 'url');
-                        list.sling = [list.sling[0]];
-                        list.sling[0].chan.source = 'sling_tv';
-                    } else {
-                        list.sling[0].chan.source = 'sling_tv';
-
-                    }
-                }
+                // if (list.sling) {
+                //     if (list.sling.length > 1) {
+                //
+                //         list.sling[0].shows = _.uniqBy(_.flatten(showsSling), 'url');
+                //         list.sling = [list.sling[0]];
+                //         list.sling[0].chan.source = 'sling_tv';
+                //     } else {
+                //         list.sling[0].chan.source = 'sling_tv';
+                //
+                //     }
+                // }
 
                 return list
 
@@ -386,7 +388,6 @@ module.exports = {
 
         callback(null, res)
     },
-
 
 
     cleanUpCbsOnCheckout: function (list, callback) {
@@ -403,6 +404,19 @@ module.exports = {
         }
 
         callback(null, list)
+    },
+
+    otaForSports: function (pkg, list, callback) {
+
+        _.forEach(pkg.data.sports, function (elem) {
+            if(elem.img == 'ota'){
+                list.ota[0].shows.push(elem)
+            }
+        })
+
+        callback(null, list)
+
+
     },
 
     consolidatePpv: function (list, callback) {
