@@ -99,7 +99,8 @@ module.exports = {
         async.waterfall([
             async.apply(this.genList, pkg),
             this.createlist,
-            this.consolidatePpv
+            this.consolidatePpv,
+            async.apply(this.otaForSports, pkg)
         ], function end(err, result) {
             res = result
         });
