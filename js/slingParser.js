@@ -41,7 +41,7 @@ module.exports = {
             return elem
         })
 
-        sorted_array = _.filter(sorted_array, function(elem){
+        sorted_array = _.filter(sorted_array, function (elem) {
             return elem.shows.length > 0
         })
 
@@ -95,17 +95,33 @@ module.exports = {
         callback(null, sorted_array, content)
 
     },
-    sports : function(pkg, sorted_array, content, callback){
+    sports: function (pkg, sorted_array, content, callback) {
         var sports = pkg.data.sports;
 
-        _.forEach(sports, function(elem){
-                sorted_array = _.map(sorted_array, function(service){
-                    if(_.snakeCase(service.chan) == elem.img){
-                        service.shows.push(elem)
-                    }
+        _.forEach(sports, function (elem) {
+            sorted_array = _.map(sorted_array, function (service) {
+                if (_.snakeCase(service.chan) == elem.img) {
+                    service.shows.push(elem)
+                }
 
-                    return service
-                })
+
+                return service
+            })
+
+            if (elem.img == 'fubotv') {
+
+                var fubo_service = {
+
+                    chan: 'Fubo TV',
+
+
+                    shows: [ elem ]
+                }
+
+                sorted_array.push(fubo_service)
+
+
+            }
         })
 
 
