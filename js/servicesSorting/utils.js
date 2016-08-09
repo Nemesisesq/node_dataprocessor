@@ -28,11 +28,18 @@ module.exports = {
     },
 
     checkShowCoverageByTier: function (elem, list) {
-        var show_services = this.getServices(elem)
-        show_services = _.map(show_services, function (elem) {
-            return elem.name || elem.display_name
+        var show_services = [];
 
-        })
+        if (elem.category) {
+            show_services = elem.json_data.network_list
+        } else {
+            show_services = this.getServices(elem)
+
+            show_services = _.map(show_services, function (elem) {
+                return elem.name || elem.display_name
+
+            })
+        }
 
         var intersection = _.intersection(show_services, list);
 

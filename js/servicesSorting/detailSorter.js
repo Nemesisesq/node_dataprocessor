@@ -36,6 +36,33 @@ module.exports = {
         return res
     },
 
+    getSportsServices: function (cs) {
+        async.waterfall([
+            async.apply(this.transformSportsNetworks, cs),
+            this.sonyVueProcessor,
+        ], function (err, result) {
+            res = result
+        })
+        return res
+
+
+    },
+
+    transformSportsNetworks: function (cs, callback) {
+        var res = {live: []}
+
+        var jsonString = cs.json_data.replace(/'/g, '"');
+        jsonString = utils.cleanString(jsonString);
+        cs.json_data = JSON.parse(jsonString)
+
+        cs.json_data.network_list = _.map(cs.json_data.network_list, function (elem) {
+            return elem.trim()
+        })
+
+        callback(null, res, cs)
+    },
+
+
     sonyVueProcessor: function (obj, cs, callback) {
 
         var collection = ['Sling Blue', 'Sling Orange', 'Sling Blue Orange', 'Sony Vue Slim', 'Sony Vue Core', 'Sony Vue Elite'];

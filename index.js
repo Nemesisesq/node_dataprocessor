@@ -1,11 +1,11 @@
-var ss = require('./js/sorter.js');
-var ds = require('./js/detailSorter');
+var ss = require('./js/servicesSorting/sorter.js');
+var ds = require('./js/servicesSorting/detailSorter');
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var morgan = require('morgan');
-var sling = require('./js/slingParser');
+var sling = require('./js/servicesSorting/slingParser');
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -17,10 +17,10 @@ app.set('view engine', 'ejs');
 
 
 app.use(bodyParser.json({limit: "50mb"}));
-app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}))
+app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit: 50000}))
 
 app.use(cors({
-    allowedOrigins :[
+    allowedOrigins: [
         'localhost', 'herokuapp.com', 'streamsavvy.tv'
     ]
 }));
@@ -48,7 +48,6 @@ app.use(function (req, res, next) {
 });
 
 
-
 app.get('/', function (request, response) {
     response.render('pages/index');
 });
@@ -59,26 +58,31 @@ app.post('/service_list', function (request, response) {
     response.send(res)
 });
 
-app.post('/checkout_list', function(request, response){
+app.post('/checkout_list', function (request, response) {
     var body = request.body;
     var res = ss.checkoutList(body);
     response.send(res)
 });
 
-app.post('/detail_sources', function(request, response){
+app.post('/detail_sources', function (request, response) {
     var body = request.body;
-    var res = ds.viewingWindows(body);
+    var res = ""
+    if (body.guidebox_data) {
+        res = ds.viewingWindows(body);
+    }
+
+    if (body.category){
+        res = ds.getSportsServices(body)
+    }
     response.send(res)
 });
 
-app.post('/sling_vue', function(request, response){
+app.post('/sling_vue', function (request, response) {
     var body = request.body;
     var res = sling.process(body);
     response.send(res)
 
 })
-
-
 
 
 app.listen(app.get('port'), function () {
