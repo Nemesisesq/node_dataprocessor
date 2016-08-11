@@ -149,6 +149,11 @@ module.exports = {
 
                 })
                 .uniqBy('source')
+                .filter(function (elem) {
+                    return _.some(['freeform', 'usa'], function (f) {
+                        return elem.source == f
+                    })
+                })
                 .uniqBy(function (elem) {
                     if (elem.display_name) {
                         return elem.display_name
@@ -378,7 +383,7 @@ module.exports = {
                         return k;
                     };
 
-                    services.sortedServices = _.filter(['live', 'on_demand', 'binge', 'pay_per_view'], function(elem){
+                    services.sortedServices = _.filter(['live', 'on_demand', 'binge', 'pay_per_view'], function (elem) {
                         return services[elem]
                     })
 
