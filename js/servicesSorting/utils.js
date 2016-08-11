@@ -169,5 +169,10 @@ module.exports = {
         var list;
         elem.guidebox_data.sources == undefined ? list = elem.channel : list = _.concat(elem.channel, elem.guidebox_data.sources.web.episodes.all_sources, elem.guidebox_data.sources.ios.episodes.all_sources, elem.guidebox_data.detail.channels);
         return list
+    },
+    getSportsServices : function (cs) {
+        return _.map(cs.json_data.network_list, function (elem) {
+            return elem.trim()
+        });
     }
 };

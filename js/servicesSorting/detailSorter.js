@@ -5,6 +5,7 @@
 var _ = require('lodash');
 var utils = require('./utils');
 var async = require('async');
+var sortObj = require('sort-object');
 
 function interceptor(obj) {
     // console.log(obj)
@@ -23,6 +24,7 @@ var processOtaService = function (elem) {
     elemCopy.source = 'ota';
     return elemCopy;
 };
+
 module.exports = {
 
     viewingWindows: function (cs) {
@@ -50,14 +52,12 @@ module.exports = {
 
     transformSportsNetworks: function (cs, callback) {
         var res = {live: []}
+        //
+        // var jsonString = cs.json_data.replace(/'/g, '"');
+        // jsonString = utils.cleanString(jsonString);
+        // cs.json_data = JSON.parse(jsonString)
 
-        var jsonString = cs.json_data.replace(/'/g, '"');
-        jsonString = utils.cleanString(jsonString);
-        cs.json_data = JSON.parse(jsonString)
-
-        cs.json_data.network_list = _.map(cs.json_data.network_list, function (elem) {
-            return elem.trim()
-        })
+        cs.json_data.network_list = utils.getSportsServices(cs)
 
         callback(null, res, cs)
     },
@@ -378,9 +378,9 @@ module.exports = {
                         return k;
                     };
 
-                    services.sortedServices = _.sortBy(Object.keys(services), function (elem) {
-                        return elem.length
-                    });
+                    services.sortedServices = _.filter(['live', 'on_demand', 'binge', 'pay_per_view'], function(elem){
+                        return services[elem]
+                    })
 
                     return services
 

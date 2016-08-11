@@ -111,7 +111,8 @@ module.exports = {
     checkoutList: function (pkg) {
         var res;
         async.waterfall([
-            async.apply(this.genList, pkg),
+            async.apply(this.removeSports, pkg),
+            this.genList,
             this.createlist,
             this.cleanUpCbsOnCheckout,
             async.apply(this.otaForSports, pkg)
@@ -121,10 +122,23 @@ module.exports = {
         return res
     },
 
+    removeSports : function (pkg, callback) {
+        pkg.data.content = _.filter(pkg.data.content, function (elem) {
+            return !elem.json_data
+        })
+        callback(null, pkg)
+    },
+
 
     genList: function getBase(ssPackage, callback) {
         var list = _.chain(ssPackage.data.content)
+            .filter(function (elem) {
+                return elem.json_data != undefined
+            })
             .map(function (elem) {
+                if (elem.json_data) {
+                    return utils.getSportsServices(elem)
+                }
                 return utils.getServices(elem);
             })
             .tap(interceptor)
@@ -258,6 +272,10 @@ module.exports = {
             .map(function (elem) {
                 var o = {chan: elem};
                 o.shows = _.filter(ssPackage.data.content, function (show) {
+                    if (show.json_data) {
+                        return false
+                    }
+
                     if (show.on_netflix && elem.source == 'netflix') {
                         return true
                     }
@@ -420,7 +438,7 @@ module.exports = {
 
 
                             },
-                            shows : []
+                            shows: []
 
                         }]
                 }
