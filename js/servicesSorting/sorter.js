@@ -280,7 +280,7 @@ module.exports = {
                         return true
                     }
 
-                    if (show.guidebox_data.detail != undefined && new RegExp(elem.source, 'i').test(show.guidebox_data.detail.channels[0].name)) {
+                    if (show.guidebox_data.detail != undefined && show.guidebox_data.detail.channels.length > 0 new RegExp(elem.source, 'i').test(show.guidebox_data.detail.channels[0].name)) {
                         return true
                     }
 
