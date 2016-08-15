@@ -122,7 +122,7 @@ module.exports = {
         return res
     },
 
-    removeSports : function (pkg, callback) {
+    removeSports: function (pkg, callback) {
         pkg.data.content = _.filter(pkg.data.content, function (elem) {
             return !elem.json_data
         })
@@ -280,7 +280,9 @@ module.exports = {
                         return true
                     }
 
-                    if (show.guidebox_data.detail != undefined && show.guidebox_data.detail.channels.length > 0 && new RegExp(elem.source, 'i').test(show.guidebox_data.detail.channels[0].name)) {
+                    if (show.guidebox_data.detail != undefined &&
+                        show.guidebox_data.detail.channels.length > 0 &&
+                        new RegExp(elem.source, 'i').test(show.guidebox_data.detail.channels[0].name)) {
                         return true
                     }
 
