@@ -132,9 +132,7 @@ module.exports = {
 
     genList: function getBase(ssPackage, callback) {
         var list = _.chain(ssPackage.data.content)
-            .filter(function (elem) {
-                return elem.json_data != undefined
-            })
+
             .map(function (elem) {
                 if (elem.json_data) {
                     return utils.getSportsServices(elem)
