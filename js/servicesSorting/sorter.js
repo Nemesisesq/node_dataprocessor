@@ -294,8 +294,8 @@ module.exports = {
                         combinedSources = _.uniqBy(combinedSources, 'source');
 
                         var source_check = _.some(combinedSources, function (source) {
-                            var showRe = new RegExp(source.source);
-                            var elemRe = new RegExp(elem.source);
+                            var showRe = new RegExp(source.source.replace('_free', '').replace('plus_', ''));
+                            var elemRe = new RegExp(elem.source.replace('_free', '').replace('plus_', ''));
 
 
                             return showRe.test(elem.source) || elemRe.test(source.source)
