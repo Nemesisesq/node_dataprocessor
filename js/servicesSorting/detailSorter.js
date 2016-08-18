@@ -27,6 +27,53 @@ var processOtaService = function (elem) {
 
 module.exports = {
 
+    scheduleNetworkSuggestions: function (sched) {
+
+        var collection = ['OTA', 'Sling Blue', 'Sling Orange', 'Sling Blue Orange', 'Sony Vue Slim', 'Sony Vue Core', 'Sony Vue Elite'];
+
+        collection = _.map(collection, function (elem) {
+            return {
+                source: _.snakeCase(elem),
+                display_name: elem
+            }
+        })
+
+        sched.data = _.map(sched.data, function (elem) {
+            elem.suggestion = []
+            _.forEach(collection, function (serv) {
+                var camel_chan = _.camelCase(serv.display_name);
+
+                if (_.some(elem.result_time.network, function (elem) {
+                        return _.includes(utils[camel_chan], elem) || _.includes(utils[camel_chan], _.lowerCase(elem))
+
+                    })) {
+
+                    if (_.some(elem.suggestion, function (d) {
+                            if (/sling/i.test(d.source) && /sling/i.test(camel_chan)) {
+                                return true
+                            }
+
+                            if (/vue/i.test(d.source) && /vue/i.test(camel_chan)) {
+                                return true
+                            }
+
+                        })) {
+
+                    } else {
+                        elem.suggestion.push(serv)
+
+                    }
+
+                }
+            })
+
+            return elem
+        });
+
+        return sched
+
+    },
+
     viewingWindows: function (cs) {
         var res
         async.waterfall([
