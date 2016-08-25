@@ -39,9 +39,19 @@ module.exports = {
         })
 
         sched.data = _.map(sched.data, function (elem) {
+            if(elem == "BYE WEEK"){
+                return
+            }
+
             elem.suggestion = []
             _.forEach(collection, function (serv) {
+
+
                 var camel_chan = _.camelCase(serv.display_name);
+
+                if(typeof elem.result_time.network =="string" ){
+                    elem.result_time.network = [elem.result_time.network]
+                }
 
                 if (_.some(elem.result_time.network, function (elem) {
                         return _.includes(utils[camel_chan], elem) || _.includes(utils[camel_chan], _.lowerCase(elem))
