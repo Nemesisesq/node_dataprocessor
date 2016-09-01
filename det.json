@@ -1,0 +1,322 @@
+{
+  "id": 5233096,
+  "tvdb": 5044443,
+  "content_type": "Full Episode",
+  "is_shadow": 0,
+  "alternate_tvdb": [],
+  "imdb_id": "tt3807538",
+  "themoviedb": 1048212,
+  "show_id": 15631,
+  "season_number": 3,
+  "episode_number": 13,
+  "special": 0,
+  "first_aired": "2015-06-12",
+  "title": "Trust No Bitch",
+  "original_title": "Trust No Bitch",
+  "alternate_titles": [],
+  "tags": [],
+  "overview": "Miracles and conversions occur, but Piper and Caputo know that some situations can't be dealt with through spiritual means.",
+  "duration": 5360,
+  "production_code": "",
+  "writers": [],
+  "directors": [],
+  "cast": [
+    {
+      "id": 103022,
+      "name": "Taylor Schilling",
+      "character_name": "Piper Chapman"
+    },
+    {
+      "id": 466023,
+      "name": "Kate Mulgrew",
+      "character_name": "Galina 'Red' Reznikov"
+    },
+    {
+      "id": 97618,
+      "name": "Michael Harney",
+      "character_name": "Sam Healy"
+    },
+    {
+      "id": 658250,
+      "name": "Uzo Aduba",
+      "character_name": "Suzanne 'Crazy Eyes' Warren"
+    },
+    {
+      "id": 262295,
+      "name": "Selenis Leyva",
+      "character_name": "Gloria Mendoza"
+    },
+    {
+      "id": 349702,
+      "name": "Natasha Lyonne",
+      "character_name": "Nicole 'Nicky' Nichols"
+    },
+    {
+      "id": 391559,
+      "name": "Laura Prepon",
+      "character_name": "Alex Vause"
+    },
+    {
+      "id": 518355,
+      "name": "Taryn Manning",
+      "character_name": "Tiffany 'Pennsatucky' Doggett"
+    },
+    {
+      "id": 321571,
+      "name": "Danielle Brooks",
+      "character_name": "Tasha 'Taystee' Jefferson"
+    },
+    {
+      "id": 767702,
+      "name": "Adrienne C. Moore",
+      "character_name": "Cindy 'Black Cindy' Hayes"
+    },
+    {
+      "id": 139005,
+      "name": "Dascha Polanco",
+      "character_name": "Dayanara 'Daya' Diaz"
+    },
+    {
+      "id": 432107,
+      "name": "Yael Stone",
+      "character_name": "Lorna Morello"
+    },
+    {
+      "id": 173511,
+      "name": "Nick Sandow",
+      "character_name": "Joe Caputo"
+    },
+    {
+      "id": 584731,
+      "name": "Samira Wiley",
+      "character_name": "Poussey Washington"
+    }
+  ],
+  "guest_stars": [
+    {
+      "id": 257352,
+      "name": "Ruby Rose",
+      "character_name": "Stella Carlin"
+    }
+  ],
+  "thumbnail_208x117": "http:\/\/static-api.guidebox.com\/111615\/thumbnails_episodes\/15631-13-3-1434092400-9427812337-small-208x117.jpg",
+  "thumbnail_304x171": "http:\/\/static-api.guidebox.com\/111615\/thumbnails_episodes\/15631-13-3-1434092400-166784442-medium-304x171.jpg",
+  "thumbnail_400x225": "http:\/\/static-api.guidebox.com\/111615\/thumbnails_episodes\/15631-13-3-1434092400-7710669157-large-400x225.jpg",
+  "thumbnail_608x342": "http:\/\/static-api.guidebox.com\/111615\/thumbnails_episodes\/15631-13-3-1434092400-3838523612-xlarge-608x342.jpg",
+  "free_web_sources": [],
+  "free_ios_sources": [],
+  "free_android_sources": [],
+  "tv_everywhere_web_sources": [],
+  "tv_everywhere_ios_sources": [],
+  "tv_everywhere_android_sources": [],
+  "subscription_web_sources": [],
+  "subscription_ios_sources": [],
+  "subscription_android_sources": [],
+  "purchase_web_sources": [
+    {
+      "source": "itunes",
+      "display_name": "iTunes",
+      "id": 7531612,
+      "link": "https:\/\/itunes.apple.com\/us\/tv-season\/trust-no-bitch\/id1093577270?i=1096296607&at=10laHb",
+      "formats": [
+        {
+          "price": "1.99",
+          "format": "SD",
+          "type": "purchase"
+        },
+        {
+          "price": "2.99",
+          "format": "HD",
+          "type": "purchase"
+        }
+      ]
+    },
+    {
+      "source": "amazon_buy",
+      "display_name": "Amazon",
+      "id": 7531126,
+      "link": "http:\/\/www.amazon.com\/gp\/product\/B01FNDJAQI",
+      "formats": [
+        {
+          "price": "1.99",
+          "format": "SD",
+          "type": "purchase"
+        },
+        {
+          "price": "2.99",
+          "format": "HD",
+          "type": "purchase"
+        }
+      ]
+    },
+    {
+      "source": "vudu",
+      "display_name": "VUDU",
+      "id": 7531846,
+      "link": "http:\/\/click.linksynergy.com\/fs-bin\/click?id=Pz66xbzAbFo&subid=&offerid=251672.1&type=10&tmpid=9417&RD_PARM1=http%3A%2F%2Fwww.vudu.com%2Fmovies%2F%23%21content%2F767082",
+      "formats": [
+        {
+          "price": "1.99",
+          "format": "SD",
+          "type": "purchase"
+        },
+        {
+          "price": "2.99",
+          "format": "HD",
+          "type": "purchase"
+        },
+        {
+          "price": "2.99",
+          "format": "HDX",
+          "type": "purchase"
+        }
+      ]
+    },
+    {
+      "source": "google_play",
+      "display_name": "Google Play",
+      "id": 7545209,
+      "link": "https:\/\/play.google.com\/store\/tv\/show?id=JOYbaNyYAvg&cdid=tvseason-48g6BjhIRmlDj8ope-ymaQ&gdid=tvepisode-hRJplDtFXL0",
+      "formats": [
+        {
+          "price": "1.99",
+          "format": "SD",
+          "type": "purchase"
+        },
+        {
+          "price": "2.99",
+          "format": "HD",
+          "type": "purchase"
+        }
+      ]
+    },
+    {
+      "source": "youtube_purchase",
+      "display_name": "YouTube",
+      "id": 7545609,
+      "link": "https:\/\/www.youtube.com\/watch?v=hRJplDtFXL0",
+      "formats": [
+        {
+          "price": "1.99",
+          "format": "SD",
+          "type": "purchase"
+        },
+        {
+          "price": "2.99",
+          "format": "HD",
+          "type": "purchase"
+        }
+      ]
+    },
+    {
+      "source": "verizon_on_demand",
+      "display_name": "Verizon On Demand",
+      "id": 7907471,
+      "link": "https:\/\/www.verizon.com\/Ondemand\/TVShows\/TVShowDetails\/ORANGEISTHEN\/3\/13",
+      "formats": [
+        {
+          "price": "1.99",
+          "format": "SD",
+          "type": "purchase"
+        },
+        {
+          "price": "2.99",
+          "format": "HD",
+          "type": "purchase"
+        }
+      ]
+    }
+  ],
+  "purchase_ios_sources": [
+    {
+      "source": "itunes",
+      "display_name": "iTunes",
+      "id": 7531612,
+      "link": "itms:\/\/itunes.apple.com\/us\/tv-season\/trust-no-bitch\/id1093577270?i=1096296607&at=10laHb",
+      "app_name": "iTunes",
+      "app_link": 1,
+      "app_required": 1,
+      "app_download_link": "itms-apps:\/\/",
+      "formats": [
+        {
+          "price": "1.99",
+          "format": "SD",
+          "type": "purchase"
+        },
+        {
+          "price": "2.99",
+          "format": "HD",
+          "type": "purchase"
+        }
+      ]
+    },
+    {
+      "source": "vudu",
+      "display_name": "VUDU",
+      "id": 7531846,
+      "link": "http:\/\/click.linksynergy.com\/fs-bin\/click?id=Pz66xbzAbFo&subid=&offerid=251672.1&type=10&tmpid=9417&RD_PARM1=http%3A%2F%2Fwww.vudu.com%2Fmovies%2F%23%21content%2F767082",
+      "app_name": "VUDU",
+      "app_link": 0,
+      "app_required": 0,
+      "app_download_link": "itms-apps:\/\/itunes.apple.com\/app\/vudu-player-movies-tv\/id487285735",
+      "formats": [
+        {
+          "price": "1.99",
+          "format": "SD",
+          "type": "purchase"
+        },
+        {
+          "price": "2.99",
+          "format": "HD",
+          "type": "purchase"
+        }
+      ]
+    }
+  ],
+  "purchase_android_sources": [
+    {
+      "source": "vudu",
+      "display_name": "VUDU",
+      "id": 7531846,
+      "link": "vuduandroidapp:\/\/_type\/deeplink\/token\/?refid=&refcontentid=767082#!content%2F767082",
+      "app_name": "VUDU",
+      "app_link": 1,
+      "app_required": 1,
+      "app_download_link": "https:\/\/play.google.com\/store\/apps\/details?id=air.com.vudu.air.DownloaderTablet",
+      "formats": [
+        {
+          "price": "1.99",
+          "format": "SD",
+          "type": "purchase"
+        },
+        {
+          "price": "2.99",
+          "format": "HD",
+          "type": "purchase"
+        }
+      ]
+    },
+    {
+      "source": "google_play",
+      "display_name": "Google Play",
+      "id": 7545209,
+      "link": "https:\/\/play.google.com\/store\/tv\/show?id=JOYbaNyYAvg&cdid=tvseason-48g6BjhIRmlDj8ope-ymaQ&gdid=tvepisode-hRJplDtFXL0",
+      "app_name": "Google Play",
+      "app_link": 0,
+      "app_required": 0,
+      "app_download_link": "https:\/\/play.google.com\/store",
+      "formats": [
+        {
+          "price": "1.99",
+          "format": "SD",
+          "type": "purchase"
+        },
+        {
+          "price": "2.99",
+          "format": "HD",
+          "type": "purchase"
+        }
+      ]
+    }
+  ]
+}

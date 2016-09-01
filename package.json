@@ -6,6 +6,7 @@
   "dependencies": {
     "async": "^2.0.0-rc.6",
     "body-parser": "^1.15.2",
+    "clj-fuzzy": "^0.3.2",
     "cors": "^2.7.1",
     "csv": "^1.1.0",
     "ejs": "^2.4.2",

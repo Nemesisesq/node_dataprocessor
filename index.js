@@ -91,6 +91,13 @@ app.post('/sched_suggestion', function (request, response) {
 
 })
 
+app.post('/guide', function(request, response){
+    var body = request.body;
+    var res = sling.processGuideChan(body)
+    response.send(res)
+
+})
+
 
 app.listen(app.get('port'), function () {
     console.log('Node app is running on port', app.get('port'));

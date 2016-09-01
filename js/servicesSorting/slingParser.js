@@ -2,12 +2,48 @@
  * Created by Nem on 7/21/16.
  */
 
+var clj_fuzzy = require('clj-fuzzy')
+
 var _ = require('lodash');
 var async = require('async');
 var utils = require('./utils');
 
 
 module.exports = {
+
+    processGuideChan: function (chan) {
+
+        var collection = ['OTA', 'Sling Blue', 'Sling Orange', 'Sling Blue Orange', 'Sony Vue Slim', 'Sony Vue Core', 'Sony Vue Elite'];
+
+        collection = _.map(collection, function (elem) {
+            return {
+                source: _.snakeCase(elem),
+                display_name: elem
+            }
+        })
+
+        var that = this;
+        collection = _.filter(collection, function (elem) {
+            that.matchChanInList(elem, chan)
+        })
+
+        chan.streamingServices = collection
+
+        return chan
+
+
+    },
+
+
+    matchChanInList: function (elem, chan) {
+
+        _.some(utils[_.camelCase(elem.source)], function (e) {
+
+            return clj_fuzzy.metrics.dice(e, chan.SourceLongName) > .7
+
+        })
+
+    },
 
     process: function (pkg) {
 
@@ -115,7 +151,7 @@ module.exports = {
                     chan: 'Fubo TV',
 
 
-                    shows: [ elem ]
+                    shows: [elem]
                 }
 
                 sorted_array.push(fubo_service)
