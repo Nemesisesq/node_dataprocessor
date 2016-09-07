@@ -88,14 +88,12 @@ app.post('/sched_suggestion', function (request, response) {
     var body = request.body;
     var res = ds.scheduleNetworkSuggestions(body);
     response.send(res)
-
 })
 
 app.post('/guide', function(request, response){
     var body = request.body;
     var res = sling.processGuideChan(body)
     response.send(res)
-
 })
 
 

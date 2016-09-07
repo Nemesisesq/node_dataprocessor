@@ -24,10 +24,10 @@ module.exports = {
 
         var that = this;
         collection = _.filter(collection, function (elem) {
-            that.matchChanInList(elem, chan)
+            return that.matchChanInList(elem, chan)
         })
 
-        chan.streamingServices = collection
+        chan.streamingServices = collection;
 
         return chan
 
@@ -37,9 +37,11 @@ module.exports = {
 
     matchChanInList: function (elem, chan) {
 
-        _.some(utils[_.camelCase(elem.source)], function (e) {
+        return _.some(utils[_.camelCase(elem.source)], function (e) {
 
-            return clj_fuzzy.metrics.dice(e, chan.SourceLongName) > .7
+            e = e.replace(/\(.\)/, "")
+
+            return clj_fuzzy.metrics.dice(e, chan.SourceLongName) > .3 || clj_fuzzy.metrics.dice(e, chan.DisplayName) > .3
 
         })
 
