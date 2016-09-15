@@ -132,6 +132,7 @@ module.exports = {
         })
         _.forEach(collection, function (chan) {
             var camel_chan = _.camelCase(chan.display_name)
+
             utils.checkShowCoverageByTier(cs, utils[camel_chan]) && obj.live.push(chan)
         })
 
@@ -152,7 +153,9 @@ module.exports = {
                     }
                     return elem
                 })
-                .concat(cs.guidebox_data.sources.web.episodes.all_sources, cs.guidebox_data.sources.ios.episodes.all_sources, cs.guidebox_data.detail.channels)
+                .concat(cs.guidebox_data.sources.web.episodes.all_sources,
+                    cs.guidebox_data.sources.ios.episodes.all_sources,
+                    cs.guidebox_data.detail.channels)
                 .tap(function (o) {
                     o
                 })
@@ -295,27 +298,6 @@ module.exports = {
                                     return elem
 
                                 })
-                                // .map(function (elem) {
-                                //
-                                //
-                                //     if (elem.is_on_sling ||
-                                //         elem.on_sling ||
-                                //         _.includes(utils.slingChannels, elem.display_name) ||
-                                //         _.includes(utils.slingChannels, elem.name)) {
-                                //         // var elemCopy = _.cloneDeep(elem);
-                                //
-                                //         elem.name = 'Sling';
-                                //         elem.display_name = 'Sling';
-                                //         delete elem['id'];
-                                //         delete elem['$$hashKey'];
-                                //
-                                //         elem.source = 'sling_tv';
-                                //
-                                //         // services.live.push(elemCopy)
-                                //
-                                //     }
-                                //     return elem
-                                // })
                                 .map(function (elem) {
 
 

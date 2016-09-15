@@ -13,7 +13,7 @@ module.exports = {
 
     processGuideChan: function (chan) {
 
-        var collection = ['OTA', 'Sling Blue', 'Sling Orange', 'Sling Blue Orange', 'Sony Vue Slim', 'Sony Vue Core', 'Sony Vue Elite'];
+        var collection = ['OTA', 'Sling Blue', 'Sling Orange', 'Sling Blue Orange', 'Sony Vue Slim', 'Sony Vue Core', 'Sony Vue Elite', 'Fubo TV'];
 
         collection = _.map(collection, function (elem) {
             return {
