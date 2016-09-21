@@ -146,6 +146,7 @@ module.exports = {
 
             var x = _(cs.channel)
                 .map(function (elem) {
+                    console.log(cs)
                     try {
                         elem.source = elem.guidebox_data.short_name
                     } catch (e) {
