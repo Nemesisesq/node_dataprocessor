@@ -172,8 +172,9 @@ module.exports = {
                 })
 
                 .map(function (elem) {
-                    console.log(elem)
+                    console.log(elem.channel)
                     if (elem.channel != undefined) {
+                        console.log("I shouldn't be here")
 
                         _.forEach(elem.channel, function (c) {
 
