@@ -141,6 +141,8 @@ module.exports = {
 
     detailSources: function (cs, callback) {
 
+        console.log("Hello world")
+
         if (cs.guidebox_data != undefined) {
 
 
