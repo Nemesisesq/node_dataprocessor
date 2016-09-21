@@ -156,16 +156,22 @@ module.exports = {
                     }
                     return elem
                 })
-                .thru(function(obj){
-                    console.log(obj)
-                    }
-                )
-                .concat(cs.guidebox_data.sources.web.episodes.all_sources,
-                    cs.guidebox_data.sources.ios.episodes.all_sources,
-                    cs.guidebox_data.detail.channels)
                 .tap(function (o) {
-                    o
+                    console.log(o)
                 })
+                .thru(function (obj) {
+                    if (cs.guidebox_data.detail == undefined){
+                    return _.concat(cs.guidebox_data.sources.web.episodes.all_sources,
+                            cs.guidebox_data.sources.ios.episodes.all_sources,
+                            cs.guidebox_data.channel)
+
+                    }
+
+                    return _.concat(cs.guidebox_data.sources.web.episodes.all_sources,
+                        cs.guidebox_data.sources.ios.episodes.all_sources,
+                        cs.guidebox_data.detail.channels)
+                })
+
                 .map(function (elem) {
                     _.forEach(elem.channel, function (c) {
 
