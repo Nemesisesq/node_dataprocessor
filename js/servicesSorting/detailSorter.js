@@ -171,7 +171,6 @@ module.exports = {
                         cs.guidebox_data.detail.channels)
                 })
                 .compact()
-
                 .map(function (elem) {
                     if (elem) {
 
@@ -190,7 +189,7 @@ module.exports = {
                         }
                     }
                     return elem
-                }
+                })
                 .map(function (elem) {
                     if (elem.source == 'hulu_free') {
                         elem.source = 'hulu_plus';
