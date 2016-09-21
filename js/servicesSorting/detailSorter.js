@@ -174,7 +174,7 @@ module.exports = {
                 .map(function (elem) {
                     if (elem) {
 
-                        console.log(elem)
+                        // console.log(elem)
                         // if (elem.channel != undefined) {
                         //     console.log("I shouldn't be here")
                         //
