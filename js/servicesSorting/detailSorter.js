@@ -157,9 +157,10 @@ module.exports = {
                     return elem
                 })
                 .tap(function (o) {
-                    console.log(o)
+                    // console.log(o)
                 })
                 .thru(function (obj) {
+                    console.log(obj)
                     if (cs.guidebox_data.detail == undefined){
                     return _.concat(cs.guidebox_data.sources.web.episodes.all_sources,
                             cs.guidebox_data.sources.ios.episodes.all_sources,
@@ -173,6 +174,7 @@ module.exports = {
                 })
 
                 .map(function (elem) {
+                    console.log(elem)
                     if (elem.channel != undefined){
 
                     _.forEach(elem.channel, function (c) {
