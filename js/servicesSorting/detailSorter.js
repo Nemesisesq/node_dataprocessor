@@ -39,7 +39,7 @@ module.exports = {
         })
 
         sched.data = _.map(sched.data, function (elem) {
-            if(elem == "BYE WEEK"){
+            if (elem == "BYE WEEK") {
                 return
             }
 
@@ -49,7 +49,7 @@ module.exports = {
 
                 var camel_chan = _.camelCase(serv.display_name);
 
-                if(typeof elem.result_time.network =="string" ){
+                if (typeof elem.result_time.network == "string") {
                     elem.result_time.network = [elem.result_time.network]
                 }
 
@@ -142,8 +142,7 @@ module.exports = {
     detailSources: function (cs, callback) {
 
 
-
-        if (cs.guidebox_data != undefined && cs.channel != undefined ) {
+        if (cs.guidebox_data != undefined && cs.channel != undefined) {
 
 
             var x = _(cs.channel)
@@ -161,8 +160,8 @@ module.exports = {
                 })
                 .thru(function (obj) {
                     console.log(obj)
-                    if (cs.guidebox_data.detail == undefined){
-                    return _.concat(cs.guidebox_data.sources.web.episodes.all_sources,
+                    if (cs.guidebox_data.detail == undefined) {
+                        return _.concat(cs.guidebox_data.sources.web.episodes.all_sources,
                             cs.guidebox_data.sources.ios.episodes.all_sources,
                             cs.guidebox_data.channel)
 
@@ -175,12 +174,13 @@ module.exports = {
 
                 .map(function (elem) {
                     console.log(elem)
-                    if (elem.channel != undefined){
+                    print(elem)
+                    if (elem.channel != undefined) {
 
-                    _.forEach(elem.channel, function (c) {
+                        _.forEach(elem.channel, function (c) {
 
-                        c = utils.fixGuideboxData(c, elem);
-                    });
+                            c = utils.fixGuideboxData(c, elem);
+                        });
                     }
 
                     if (elem.guidebox_data != undefined) {
