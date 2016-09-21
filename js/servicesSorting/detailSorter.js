@@ -172,18 +172,21 @@ module.exports = {
                 })
 
                 .map(function (elem) {
-                    console.log(elem)
-                    // if (elem.channel != undefined) {
-                    //     console.log("I shouldn't be here")
-                    //
-                    //     _.forEach(elem.channel, function (c) {
-                    //
-                    //         c = utils.fixGuideboxData(c, elem);
-                    //     });
-                    // }
+                    if (elem) {
 
-                    if (elem.guidebox_data != undefined) {
-                        elem.source = elem.guidebox_data.short_name
+                        console.log(elem)
+                        // if (elem.channel != undefined) {
+                        //     console.log("I shouldn't be here")
+                        //
+                        //     _.forEach(elem.channel, function (c) {
+                        //
+                        //         c = utils.fixGuideboxData(c, elem);
+                        //     });
+                        // }
+
+                        if (elem.guidebox_data != undefined) {
+                            elem.source = elem.guidebox_data.short_name
+                        }
                     }
                     return elem
                 })
