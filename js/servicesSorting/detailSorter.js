@@ -173,10 +173,13 @@ module.exports = {
                 })
 
                 .map(function (elem) {
+                    if (elem.channel != undefined){
+
                     _.forEach(elem.channel, function (c) {
 
                         c = utils.fixGuideboxData(c, elem);
                     });
+                    }
 
                     if (elem.guidebox_data != undefined) {
                         elem.source = elem.guidebox_data.short_name
