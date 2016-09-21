@@ -153,6 +153,10 @@ module.exports = {
                     }
                     return elem
                 })
+                .thru(function(obj){
+                    console.log(obj)
+                    }
+                )
                 .concat(cs.guidebox_data.sources.web.episodes.all_sources,
                     cs.guidebox_data.sources.ios.episodes.all_sources,
                     cs.guidebox_data.detail.channels)
