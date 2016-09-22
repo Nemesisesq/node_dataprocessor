@@ -41,7 +41,7 @@ module.exports = {
 
             e = e.replace(/\(.\)/, "")
 
-            return clj_fuzzy.metrics.dice(e, chan.SourceLongName) > .3 || clj_fuzzy.metrics.dice(e, chan.DisplayName) > .3
+            return clj_fuzzy.metrics.dice(e, chan.SourceLongName) > .7 || clj_fuzzy.metrics.dice(e, chan.DisplayName) > .7
 
         })
 
