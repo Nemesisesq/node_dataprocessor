@@ -43,9 +43,15 @@ module.exports = {
 
             var fuzy_dice_match = clj_fuzzy.metrics.dice(e, chan.SourceLongName) > .7 || clj_fuzzy.metrics.dice(e, chan.DisplayName) > .7
             var nregx = function(x){
+                if (x) {
+
                 return new RegExp(e).test(x) || new RegExp(x).test(e);
+                }
+
+                return false
+
             }
-            var regexp_match =  nregx(chan.SourceLongName) || nregx(chan.CallLetters)||  nregx(chan.CallLetters)
+            var regexp_match =  nregx(chan.DisplayName) || nregx(chan.CallLetters)
 
             return fuzy_dice_match || regexp_match
         })
