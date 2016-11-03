@@ -1,11 +1,16 @@
 var ss = require('./js/servicesSorting/sorter.js');
 var ds = require('./js/servicesSorting/detailSorter');
 var express = require('express');
-var app = express();
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var morgan = require('morgan');
+var mongo_express_config = require('./mongo_express_config')
+var mongo_express = require('mongo-express/lib/middleware')
 var sling = require('./js/servicesSorting/slingParser');
+
+var app = express();
+
+app.use('/mongo_express', mongo_express(mongo_express_config))
 
 app.set('port', (process.env.PORT || 5000));
 

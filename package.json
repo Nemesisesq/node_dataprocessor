@@ -12,6 +12,7 @@
     "ejs": "^2.4.2",
     "express": "^4.14.0",
     "lodash": "^4.13.1",
+    "mongo-express": "^0.31.5",
     "morgan": "^1.7.0",
     "remote-sitemap-generator": "0.0.3",
     "sort-object": "^3.0.2"

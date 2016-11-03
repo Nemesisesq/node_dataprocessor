@@ -66,7 +66,6 @@ module.exports = {
                             if (/vue/i.test(d.source) && /vue/i.test(camel_chan)) {
                                 return true
                             }
-
                         })) {
 
                     } else {
