@@ -115,8 +115,8 @@ module.exports = {
     useBasicAuth: process.env.ME_CONFIG_BASICAUTH_USERNAME !== '',
 
     basicAuth: {
-        username: process.env.ME_CONFIG_BASICAUTH_USERNAME || 'admin',
-        password: process.env.ME_CONFIG_BASICAUTH_PASSWORD || 'pass',
+        username: streamsavvy_admin,
+        password: 'tNyFB7NC%y$PWR*Zr4ej',
     },
 
     options: {

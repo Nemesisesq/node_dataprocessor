@@ -10,7 +10,7 @@ var sling = require('./js/servicesSorting/slingParser');
 
 var app = express();
 
-app.use('/mongo_express', mongo_express(mongo_express_config))
+app.use('/database_browser', mongo_express(mongo_express_config))
 
 app.set('port', (process.env.PORT || 5000));
 
